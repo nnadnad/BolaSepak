@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/prev_game"
+        android:icon="@drawable/close"
+        android:title="@string/previous_game" />
+
+    <item
+        android:id="@+id/next_game"
+        android:icon="@drawable/correct"
+        android:title="@string/next_game" />
+
+</menu>

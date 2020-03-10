@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">BolaSepak</string>
+    <string name="next_game">Next Game</string>
+    <string name="previous_game">Previous Game</string>
 </resources>
