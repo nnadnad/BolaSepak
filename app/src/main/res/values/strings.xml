@@ -3,4 +3,6 @@
     <string name="title_activity_team_detail">TeamDetail</string>
     <string name="tab_text_1">Tab 1</string>
     <string name="tab_text_2">Tab 2</string>
+    <string name="tab_sekarang">SEKARANG</string>
+    <string name="tab_sebelum">SEBELUM</string>
 </resources>
