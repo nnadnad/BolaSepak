@@ -7,6 +7,7 @@ import android.view.MenuItem;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.bolasepak.R;
 import com.example.bolasepak.event.EventFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
