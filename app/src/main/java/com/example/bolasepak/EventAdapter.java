@@ -32,6 +32,7 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventViewHol
         holder.txtAway.setText(datalist.get(position).getAway());
         holder.txtHomeScore.setText(datalist.get(position).getHome_score());
         holder.txtAwayScore.setText(datalist.get(position).getAway_score());
+        holder.txtEventDate.setText(datalist.get(position).getEvent_date());
     }
 
     @Override
@@ -40,7 +41,7 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventViewHol
     }
 
     public class EventViewHolder extends RecyclerView.ViewHolder{
-        private TextView txtHome, txtAway, txtHomeScore, txtAwayScore;
+        private TextView txtHome, txtAway, txtHomeScore, txtAwayScore, txtEventDate;
 
         public EventViewHolder(View itemView) {
             super(itemView);
@@ -48,6 +49,7 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventViewHol
             txtAway = (TextView) itemView.findViewById(R.id.away);
             txtHomeScore = (TextView) itemView.findViewById(R.id.home_score);
             txtAwayScore = (TextView) itemView.findViewById(R.id.away_score);
+            txtEventDate = (TextView) itemView.findViewById(R.id.event_date);
         }
 
     }

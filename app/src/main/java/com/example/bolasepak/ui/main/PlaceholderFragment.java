@@ -84,8 +84,9 @@ public class PlaceholderFragment extends Fragment {
 
     void addData() {
         eventArrayList = new ArrayList<>();
-        eventArrayList.add(new Event("Barca", "Liverpool", "1", "3"));
-        eventArrayList.add(new Event("Real Madrid", "Arsenal", "2", "3"));
-        eventArrayList.add(new Event("AC Milan", "Chelsea", "5", "4"));
+        eventArrayList.add(new Event("Barca", "Liverpool", "1", "3", "2 Februari 2020"));
+        eventArrayList.add(new Event("Real Madrid", "Arsenal", "2", "3", "11 Januari 2020"));
+        eventArrayList.add(new Event("Man United", "Man City", "7", "6", "1 Januari 2019"));
+        eventArrayList.add(new Event("AC Milan", "Chelsea", "5", "4", "21 Agustus 2019"));
     }
 }

@@ -5,4 +5,7 @@
     <string name="tab_text_2">Tab 2</string>
     <string name="tab_sekarang">SEKARANG</string>
     <string name="tab_sebelum">SEBELUM</string>
+    <string name="versus">VS</string>
+    <string name="desc_home">Logo club home</string>
+    <string name="desc_away">Logo club away</string>
 </resources>

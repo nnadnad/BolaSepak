@@ -51,6 +51,10 @@ public class TeamDetail extends AppCompatActivity {
 
         final String[] stringResponse = {url};
 
+        if (input == 1) {
+            stringResponse[0] = "";
+        }
+
         /*
         // Uses Volley
         // Instantiate the RequestQueue.
