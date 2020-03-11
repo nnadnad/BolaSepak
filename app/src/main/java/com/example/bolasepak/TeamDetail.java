@@ -2,12 +2,6 @@ package com.example.bolasepak;
 
 import android.os.Bundle;
 
-import com.android.volley.Request;
-import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.StringRequest;
-import com.android.volley.toolbox.Volley;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.tabs.TabLayout;
@@ -20,6 +14,8 @@ import android.view.MenuItem;
 import android.view.View;
 
 import com.example.bolasepak.ui.main.SectionsPagerAdapter;
+
+import java.io.IOException;
 
 public class TeamDetail extends AppCompatActivity {
 
@@ -44,18 +40,19 @@ public class TeamDetail extends AppCompatActivity {
     }
 
     public String getRequest(int input) {
-        // getRequest to TheSportsDB
         String url = "";
 
         if (input == 1) {
             url = "https://www.thesportsdb.com/api/v1/json/1/eventsnext.php?id=133602";
-        } else if (input == 2) {
+        }
+        else if (input == 2) {
             url = "https://www.thesportsdb.com/api/v1/json/1/eventslast.php?id=133602";
         }
 
         final String[] stringResponse = {url};
 
         /*
+        // Uses Volley
         // Instantiate the RequestQueue.
         RequestQueue queue = Volley.newRequestQueue(this);
 

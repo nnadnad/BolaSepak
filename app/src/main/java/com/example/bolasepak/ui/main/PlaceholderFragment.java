@@ -11,13 +11,24 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.bolasepak.Event;
+import com.example.bolasepak.EventAdapter;
 import com.example.bolasepak.R;
+import com.example.bolasepak.TeamDetail;
+
+import java.util.ArrayList;
 
 /**
  * A placeholder fragment containing a simple view.
  */
 public class PlaceholderFragment extends Fragment {
+
+    private RecyclerView recyclerView;
+    private EventAdapter adapter;
+    private ArrayList<Event> eventArrayList;
 
     private static final String ARG_SECTION_NUMBER = "section_number";
 
@@ -48,14 +59,33 @@ public class PlaceholderFragment extends Fragment {
             Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_team_detail, container, false);
 
-        final TextView textView = root.findViewById(R.id.section_label);
-        pageViewModel.getText().observe(this, new Observer<String>() {
-            @Override
-            public void onChanged(@Nullable String s) {
-                textView.setText(s);
-            }
-        });
+        addData();
+
+        recyclerView = (RecyclerView) root.findViewById(R.id.event_recycler);
+
+        adapter = new EventAdapter(eventArrayList);
+
+        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getActivity());
+
+        recyclerView.setLayoutManager(layoutManager);
+
+        recyclerView.setAdapter(adapter);
+
+//        final TextView textView = root.findViewById(R.id.event_text);
+//        pageViewModel.getText().observe(this, new Observer<String>() {
+//            @Override
+//            public void onChanged(@Nullable String s) {
+//                textView.setText(s);
+//            }
+//        });
 
         return root;
+    }
+
+    void addData() {
+        eventArrayList = new ArrayList<>();
+        eventArrayList.add(new Event("Barca", "Liverpool", "1", "3"));
+        eventArrayList.add(new Event("Real Madrid", "Arsenal", "2", "3"));
+        eventArrayList.add(new Event("AC Milan", "Chelsea", "5", "4"));
     }
 }
