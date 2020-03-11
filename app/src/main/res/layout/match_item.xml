@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="horizontal"
+    android:background="@drawable/search"
+    android:padding="5dp"
+    android:layout_margin="5dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:clickable="true"
+        android:background="?android:attr/selectableItemBackground"
+        android:weightSum="4"
+        android:id="@+id/match_container"
+        android:focusable="true">
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:padding="10dp"
+            android:orientation="vertical"
+            android:background="@color/BlueBg">
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="80dp"
+                android:background="@color/SoftWhite"
+                android:id="@+id/logo_home_team"
+                android:scaleType="fitCenter"/>
+            <TextView
+                android:id="@+id/id_home_team"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textAlignment="center"
+                android:textColor="@color/DarkBg"
+                android:text="Barcelona"
+                android:textSize="14sp"
+                android:layout_margin="5dp"/>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="2"
+            android:orientation="vertical"
+            android:gravity="center">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/tgl_match"
+                android:text="@string/tgl_match"
+                android:textAlignment="center"
+                android:textSize="14sp"
+                android:textColor="@color/DarkBg" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:weightSum="5"
+                android:layout_gravity="center"
+                android:layout_margin="5dp">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/score_tim_home"
+                    android:text="3"
+                    android:layout_weight="1"
+                    android:textSize="24sp"
+                    android:textColor="@color/DarkBg"
+                    android:textAlignment="center" />
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/vs"
+                    android:text="VS"
+                    android:textSize="18sp"
+                    android:textAlignment="center"
+                    android:layout_weight="3"
+                    android:textColor="@color/DarkBg" />
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/score_tim_away"
+                    android:text="2"
+                    android:textSize="24sp"
+                    android:textAlignment="center"
+                    android:layout_weight="1"
+                    android:textColor="@color/DarkBg" />
+            </LinearLayout>
+
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:padding="10dp"
+            android:orientation="vertical"
+            android:background="@color/BlueBg">
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="80dp"
+                android:background="@color/SoftWhite"
+                android:id="@+id/logo_away_team"
+                android:scaleType="fitCenter"/>
+            <TextView
+                android:id="@+id/id_away_team"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textAlignment="center"
+                android:textColor="@color/DarkBg"
+                android:text="Chelsea"
+                android:textSize="14sp"
+                android:layout_margin="5dp"/>
+        </LinearLayout>
+    </LinearLayout>
+</LinearLayout>
