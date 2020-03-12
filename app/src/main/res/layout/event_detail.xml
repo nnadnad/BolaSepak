@@ -4,6 +4,7 @@
     android:layout_height="match_parent"
     xmlns:tools="http://schemas.android.com/tools"
     tools:context=".EventActivity"
+    android:background="@color/DarkBg"
     android:orientation="vertical"
     android:padding="10dp">
 

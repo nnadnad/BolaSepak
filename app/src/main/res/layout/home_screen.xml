@@ -4,6 +4,7 @@
     android:layout_height="match_parent"
     xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
+    android:background="@color/DarkBg"
     android:padding="20dp"
     tools:context=".HomeActivity">
 
@@ -11,7 +12,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/step_count"
-        android:textColor="@color/DarkBg"
+        android:textColor="@color/Background"
         android:textSize="14sp"
         android:layout_marginTop="10dp"/>
 

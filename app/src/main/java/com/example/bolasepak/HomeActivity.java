@@ -38,9 +38,11 @@ public class HomeActivity extends AppCompatActivity {
 
     //Untuk Search
     EditText searchText;
+    boolean isSearch;
+    boolean isLoad;
 
     //Untuk databse SQLLite
-    SQLite sqLiteManager ;
+    SQLite sqLite ;
     SharedPreferences preferences ;
 
     String BASE_URL = "https://www.thesportsdb.com/api/v1/json/1";
@@ -159,10 +161,10 @@ public class HomeActivity extends AppCompatActivity {
 
     void GetData(){
         matchData = new ArrayList<>() ;
-        GetLastEvent(); ;
+        GetLastMatch();
     }
 
-    void GetLastEvent(){
+    void GetLastMatch(){
         String url = url_past_15_events ;
         RequestQueue requestQueue = Volley.newRequestQueue(this) ;
         progressBar.setVisibility(View.VISIBLE);
@@ -215,7 +217,7 @@ public class HomeActivity extends AppCompatActivity {
                 }
                 Collections.reverse(matchData) ;
 
-                GetNextEvent() ;
+                GetNextMatch();
             }catch (Exception e){
                 new Handler().postDelayed(() -> progressBar.setVisibility(View.GONE), 3000) ;
             }
@@ -228,7 +230,7 @@ public class HomeActivity extends AppCompatActivity {
         requestQueue.add(stringRequest) ;
     }
 
-    void GetNextEvent(){
+    void GetNextMatch(){
         String url = url_next_15_events ;
         RequestQueue requestQueue = Volley.newRequestQueue(this) ;
         progressBar.setVisibility(View.VISIBLE);
@@ -280,12 +282,12 @@ public class HomeActivity extends AppCompatActivity {
                     matchData.add(matchData1) ;
                 }
 
-                sqLiteManager.deleteOldCachceEvents();
-                for(int i = 0 ; i < eventPertandinganArrayList.size() ; i ++ ){
-                    sqLiteManager.addDataEvents(eventPertandinganArrayList.get(i));
-                }
+//                sqLiteManager.deleteOldCachceEvents();
+//                for(int i = 0 ; i < eventPertandinganArrayList.size() ; i ++ ){
+//                    sqLiteManager.addDataEvents(eventPertandinganArrayList.get(i));
+//                }
 
-                preferences.edit().putLong("cache_event",new Date().getTime()).apply();
+                //preferences.edit().putLong("cache_event",new Date().getTime()).apply();
                 showData();
             }catch (Exception e){
                 new Handler().postDelayed(() -> progressBar.setVisibility(View.GONE), 3000) ;
@@ -301,14 +303,14 @@ public class HomeActivity extends AppCompatActivity {
 
     void showData(){
         if (isSearch){
-            ArrayList<EventPertandingan> eventPertandinganArrToShow = sqLiteManager.getEventsBySearch(searchKey);
-            eventAdapter.setFilter(eventPertandinganArrToShow) ;
+            ArrayList<MatchData> matchDataArrayList = sqLite.getEventsBySearch(searchKey);
+            matchAdapter.filterData(matchDataArrayList); ;
             progressBar.setVisibility(View.GONE);
-            isDataLoaded = true ;
+            isLoad = true ;
         }else {
-            eventAdapter.setFilter(eventPertandinganArrayList) ;
+            matchAdapter.filterData(matchData); ;
             progressBar.setVisibility(View.GONE);
-            isDataLoaded = true ;
+            isLoad = true ;
         }
 
     }
