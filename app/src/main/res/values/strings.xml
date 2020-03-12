@@ -3,4 +3,6 @@
     <string name="step_count">How many steps today?</string>
     <string name="what_are_you_looking_for">What are you looking for?</string>
     <string name="tgl_match">14 Februari 2020</string>
+    <string name="nama_home_team">Barcelona</string>
+    <string name="nama_away_team">Chelsea</string>
 </resources>

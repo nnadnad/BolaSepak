@@ -37,7 +37,7 @@
                 android:layout_height="wrap_content"
                 android:textAlignment="center"
                 android:textColor="@color/DarkBg"
-                android:text="Barcelona"
+                android:text="@string/nama_home_team"
                 android:textSize="14sp"
                 android:layout_margin="5dp"/>
         </LinearLayout>
@@ -115,7 +115,7 @@
                 android:layout_height="wrap_content"
                 android:textAlignment="center"
                 android:textColor="@color/DarkBg"
-                android:text="Chelsea"
+                android:text="@string/nama_away_team"
                 android:textSize="14sp"
                 android:layout_margin="5dp"/>
         </LinearLayout>
