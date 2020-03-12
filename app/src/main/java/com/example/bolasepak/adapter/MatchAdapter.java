@@ -94,13 +94,10 @@ public class MatchAdapter extends RecyclerView.Adapter<MatchAdapter.MyHolder> {
         // agar tiap recycler view bisa di click
         holder.match_container.setOnClickListener(new OnSigleClickListener() {
             @Override
-            public void onClick(View v) {
-                if (isClick) {
-                    Intent intent = new Intent(
-                            context,
-                            EventActivity.class
-                    );
-                    intent.putExtra("id_match",id_match);
+            public void onSingleClick(View v) {
+                if (isClick){
+                    Intent intent = new Intent(context, EventActivity.class) ;
+                    intent.putExtra("id_event",id_match) ;
                     context.startActivity(intent);
                 }
             }

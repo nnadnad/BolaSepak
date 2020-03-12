@@ -1,14 +1,17 @@
 package com.example.bolasepak;
 
-import android.app.Activity;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
+import android.preference.PreferenceManager;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ProgressBar;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.android.volley.Request;
@@ -27,6 +30,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.Objects;
 
 public class HomeActivity extends AppCompatActivity {
 
@@ -38,8 +42,9 @@ public class HomeActivity extends AppCompatActivity {
 
     //Untuk Search
     EditText searchText;
-    boolean isSearch;
-    boolean isLoad;
+    boolean isSearch = false;
+    boolean isLoad = false;
+    String SearchInput = "";
 
     //Untuk databse SQLLite
     SQLite sqLite ;
@@ -52,59 +57,57 @@ public class HomeActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_home_screen);
+        setContentView(R.layout.home_screen);
 
-        getSupportActionBar().hide();
-        etSearch = findViewById(R.id.etSearch) ;
+        Objects.requireNonNull(getSupportActionBar()).hide();
+        searchText = findViewById(R.id.search_bar) ;
         progressBar = findViewById(R.id.progressBar) ;
-        sqLiteManager = new SQLiteManager(this);
+        sqLite = new SQLite(this);
         preferences = PreferenceManager.getDefaultSharedPreferences(this) ;
 
-        recyclerView = findViewById(R.id.recyclerView) ;
+        recyclerView = findViewById(R.id.recycler) ;
         recyclerView.setHasFixedSize(true) ;
         final int columns = getResources().getInteger(R.integer.columns);
         recyclerView.setLayoutManager(new GridLayoutManager(this,columns));
-        eventPertandinganArrayList = new ArrayList<>() ;
-        eventAdapter = new EventAdapter(this,eventPertandinganArrayList,true) ;
-        recyclerView.setAdapter(eventAdapter) ;
+        matchData = new ArrayList<>() ;
+        matchAdapter = new MatchAdapter(this,matchData,true) ;
+        recyclerView.setAdapter(matchAdapter) ;
 
-        etSearch.addTextChangedListener(new TextWatcher() {
+        searchText.addTextChangedListener(new TextWatcher() {
             @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                if (isDataLoaded){
+                if (isLoad){
                     if (s.toString().trim().equals("")){
                         isSearch = false ;
                         showData();
                     }else {
                         isSearch = true ;
-                        searchKey = s.toString().trim() ;
+                         SearchInput = s.toString().trim() ;
                         showData();
                     }
                 }
             }
 
             @Override
-            public void afterTextChanged(Editable s) {
-
-            }
+            public void afterTextChanged(Editable s) { }
         });
 
-        HashMap<String,String> cacheTeam = sqLiteManager.getDataTableTeam() ;
-        ArrayList<EventPertandingan> cacheEvents = sqLiteManager.getEvents() ;
+        HashMap<String,String> cacheTeam = sqLite.getDataTableTeam() ;
+        ArrayList<MatchData> cacheEvents = sqLite.getEvents() ;
+
 
         boolean isCacheTeamExpire = cacheTeamExpire() ;
         boolean isCacheEventExpire = cacheEventExpire() ;
+
 
         if (cacheTeam.size() > 0 && !isCacheTeamExpire){
             hashMapUrl = cacheTeam ;
 
             if (cacheEvents.size() > 0 && !isCacheEventExpire){
-                eventPertandinganArrayList = cacheEvents;
+                matchData = cacheEvents;
                 showData();
             }else{
                 GetData() ;
@@ -115,49 +118,6 @@ public class HomeActivity extends AppCompatActivity {
 
     }
 
-    void GetHashMapData(){
-        hashMapUrl = new HashMap<>() ;
-        String url = BASE_URL + "/search_all_teams.php?l=English%20Premier%20League" ;
-        RequestQueue requestQueue = Volley.newRequestQueue(this) ;
-        StringRequest stringRequest = new StringRequest(Request.Method.GET, url, new Response.Listener<String>() {
-            @Override
-            public void onResponse(String response) {
-                try{
-                    JSONObject jsonEvent = new JSONObject(response) ;
-                    sqLiteManager.deleteOldCachceTableTeam();
-                    JSONArray jsonArray = jsonEvent.getJSONArray("teams") ;
-                    for(int i = 0 ; i < jsonArray.length() ; i ++){
-                        JSONObject jsonObject = jsonArray.getJSONObject(i) ;
-                        String idTeam = jsonObject.getString("idTeam") ;
-                        String strTeamBadge = jsonObject.getString("strTeamBadge") ;
-                        hashMapUrl.put(idTeam,strTeamBadge) ;
-                        sqLiteManager.addDataTableTeam(idTeam,strTeamBadge) ;
-                    }
-                    preferences.edit().putLong("cache_team",new Date().getTime()).apply();
-                    GetData() ;
-
-                }catch (Exception e){
-                    new Handler().postDelayed(new Runnable() {
-                        public void run() {
-                            GetHashMapData();
-                        }
-                    }, 4000) ;
-                }
-            }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                new Handler().postDelayed(new Runnable() {
-                    public void run() {
-                        GetHashMapData();
-                    }
-                }, 4000) ;
-            }
-        }) ;
-
-        stringRequest.setShouldCache(false) ;
-        requestQueue.add(stringRequest) ;
-    }
 
     void GetData(){
         matchData = new ArrayList<>() ;
@@ -170,35 +130,35 @@ public class HomeActivity extends AppCompatActivity {
         progressBar.setVisibility(View.VISIBLE);
 
         StringRequest stringRequest = new StringRequest(Request.Method.GET, url, response -> {
-            try{
+            try {
 
-                JSONObject jsonEvent = new JSONObject(response) ;
-                JSONArray jsonArray = jsonEvent.getJSONArray("events") ;
-                for(int i = 0 ; i < jsonArray.length() ; i ++){
-                    JSONObject jsonObject = jsonArray.getJSONObject(i) ;
-                    String idEvent = jsonObject.getString("id_match") ;
-                    String idHomeTeam = jsonObject.getString("id_home_team") ;
-                    String idAwayTeam = jsonObject.getString("id_away_team") ;
-                    String nameHomeTeam = jsonObject.getString("strHomeTeam") ;
-                    String nameAwayTeam = jsonObject.getString("strAwayTeam") ;
-                    String intHomeScore = jsonObject.getString("intHomeScore") ;
-                    String intAwayScore = jsonObject.getString("intAwayScore") ;
-                    String urlLogoHome = hashMapUrl.get(idHomeTeam) ;
-                    String urlLogoAway = hashMapUrl.get(idAwayTeam) ;
+                JSONObject jsonEvent = new JSONObject(response);
+                JSONArray jsonArray = jsonEvent.getJSONArray("events");
+                for (int i = 0; i < jsonArray.length(); i++) {
+                    JSONObject jsonObject = jsonArray.getJSONObject(i);
+                    String idEvent = jsonObject.getString("id_match");
+                    String idHomeTeam = jsonObject.getString("id_home_team");
+                    String idAwayTeam = jsonObject.getString("id_away_team");
+                    String nameHomeTeam = jsonObject.getString("nama_home_team");
+                    String nameAwayTeam = jsonObject.getString("nama_away_team");
+                    String intHomeScore = jsonObject.getString("score_home_team");
+                    String intAwayScore = jsonObject.getString("score_away_team");
+                    String urlLogoHome = hashMapUrl.get(idHomeTeam);
+                    String urlLogoAway = hashMapUrl.get(idAwayTeam);
 
-                    String homeShots = jsonObject.getString("shots_home_team") ;
-                    String awayShots = jsonObject.getString("shots_away_team") ;
-                    String goalHomeDetails = jsonObject.getString("strHomeGoalDetails") ;
-                    String goalAwayDetails = jsonObject.getString("strAwayGoalDetails") ;
+                    String homeShots = jsonObject.getString("shots_home_team");
+                    String awayShots = jsonObject.getString("shots_away_team");
+                    String goalHomeDetails = jsonObject.getString("goals_home_detail");
+                    String goalAwayDetails = jsonObject.getString("goals_away_detail");
 
-                    String dateEvent = jsonObject.getString("match_date") ;
-                    String timeEvent = jsonObject.getString("strTime") ;
+                    String dateEvent = jsonObject.getString("match_date");
+                    String timeEvent = jsonObject.getString("match_time");
 
-                    MatchData matchData1 = new MatchData() ;
+                    MatchData matchData1 = new MatchData();
                     matchData1.setNama_home_team(nameHomeTeam);
                     matchData1.setNama_away_team(nameAwayTeam);
                     matchData1.setScore_home_team(intHomeScore);
-                    matchData1.setScore_away_team(intAwayScore) ;
+                    matchData1.setScore_away_team(intAwayScore);
                     matchData1.setMatch_date(dateEvent);
                     matchData1.setMatch_time(timeEvent);
                     matchData1.setId_match(idEvent);
@@ -213,17 +173,22 @@ public class HomeActivity extends AppCompatActivity {
                     matchData1.setGoals_home_team(goalHomeDetails);
                     matchData1.setGoals_away_team(goalAwayDetails);
 
-                    matchData.add(matchData1) ;
+                    matchData.add(matchData1);
                 }
-                Collections.reverse(matchData) ;
+                Collections.reverse(matchData);
 
-                GetNextMatch();
-            }catch (Exception e){
-                new Handler().postDelayed(() -> progressBar.setVisibility(View.GONE), 3000) ;
+                HomeActivity.this.GetNextMatch();
+            } catch (Exception e) {
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        progressBar.setVisibility(View.GONE);
+                    }
+                }, 3000);
             }
         }, error -> new Handler().postDelayed(() -> {
             progressBar.setVisibility(View.GONE);
-            GetData() ;
+            HomeActivity.this.GetData();
         }, 3000)) ;
 
         stringRequest.setShouldCache(false) ;
@@ -245,20 +210,20 @@ public class HomeActivity extends AppCompatActivity {
                     String idEvent = jsonObject.getString("id_match") ;
                     String idHomeTeam = jsonObject.getString("id_home_team") ;
                     String idAwayTeam = jsonObject.getString("id_away_team") ;
-                    String nameHomeTeam = jsonObject.getString("strHomeTeam") ;
-                    String nameAwayTeam = jsonObject.getString("strAwayTeam") ;
-                    String intHomeScore = jsonObject.getString("intHomeScore") ;
-                    String intAwayScore = jsonObject.getString("intAwayScore") ;
+                    String nameHomeTeam = jsonObject.getString("nama_home_team") ;
+                    String nameAwayTeam = jsonObject.getString("nama_away_team") ;
+                    String intHomeScore = jsonObject.getString("score_home_team") ;
+                    String intAwayScore = jsonObject.getString("score_away_team") ;
                     String urlLogoHome = hashMapUrl.get(idHomeTeam) ;
                     String urlLogoAway = hashMapUrl.get(idAwayTeam) ;
 
                     String homeShots = jsonObject.getString("shots_home_team") ;
                     String awayShots = jsonObject.getString("shots_away_team") ;
-                    String goalHomeDetails = jsonObject.getString("strHomeGoalDetails") ;
-                    String goalAwayDetails = jsonObject.getString("strAwayGoalDetails") ;
+                    String goalHomeDetails = jsonObject.getString("goals_home_team") ;
+                    String goalAwayDetails = jsonObject.getString("goals_away_team") ;
 
                     String dateEvent = jsonObject.getString("match_date") ;
-                    String timeEvent = jsonObject.getString("strTime") ;
+                    String timeEvent = jsonObject.getString("match_time") ;
 
                     MatchData matchData1 = new MatchData() ;
                     matchData1.setNama_home_team(nameHomeTeam);
@@ -282,12 +247,12 @@ public class HomeActivity extends AppCompatActivity {
                     matchData.add(matchData1) ;
                 }
 
-//                sqLiteManager.deleteOldCachceEvents();
-//                for(int i = 0 ; i < eventPertandinganArrayList.size() ; i ++ ){
-//                    sqLiteManager.addDataEvents(eventPertandinganArrayList.get(i));
-//                }
+                sqLite.deleteOldCachceEvents();
+                for(int i = 0 ; i < matchData.size() ; i ++ ){
+                    sqLite.addDataEvents(matchData.get(i));
+                }
 
-                //preferences.edit().putLong("cache_event",new Date().getTime()).apply();
+                preferences.edit().putLong("cache_event",new Date().getTime()).apply();
                 showData();
             }catch (Exception e){
                 new Handler().postDelayed(() -> progressBar.setVisibility(View.GONE), 3000) ;
@@ -303,7 +268,7 @@ public class HomeActivity extends AppCompatActivity {
 
     void showData(){
         if (isSearch){
-            ArrayList<MatchData> matchDataArrayList = sqLite.getEventsBySearch(searchKey);
+            ArrayList<MatchData> matchDataArrayList = sqLite.getEventsBySearch(SearchInput);
             matchAdapter.filterData(matchDataArrayList); ;
             progressBar.setVisibility(View.GONE);
             isLoad = true ;
@@ -313,5 +278,60 @@ public class HomeActivity extends AppCompatActivity {
             isLoad = true ;
         }
 
+    }
+
+    void GetHashMapData(){
+        hashMapUrl = new HashMap<>() ;
+        String url = "https://www.thesportsdb.com/api/v1/json/1/search_all_teams.php?l=English%20Premier%20League" ;
+        RequestQueue requestQueue = Volley.newRequestQueue(this) ;
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, url, response -> {
+            try{
+                JSONObject jsonEvent = new JSONObject(response) ;
+                sqLite.deleteOldCachceTableTeam();
+                JSONArray jsonArray = jsonEvent.getJSONArray("teams") ;
+                for(int i = 0 ; i < jsonArray.length() ; i++){
+                    JSONObject jsonObject = jsonArray.getJSONObject(i) ;
+                    String idTeam = jsonObject.getString("idTeam") ;
+                    String strTeamBadge = jsonObject.getString("strTeamBadge") ;
+                    hashMapUrl.put(idTeam,strTeamBadge) ;
+                    sqLite.addDataTableTeam(idTeam,strTeamBadge) ;
+                }
+                preferences.edit().putLong("cache_team",new Date().getTime()).apply();
+                GetData() ;
+
+            }catch (Exception e){
+                new Handler().postDelayed(() -> GetHashMapData(), 3000) ;
+            }
+        }, error -> new Handler().postDelayed(() -> GetHashMapData(), 3000)) ;
+
+        stringRequest.setShouldCache(false) ;
+        requestQueue.add(stringRequest) ;
+    }
+
+    boolean cacheEventExpire(){
+        long cacheEventTime = preferences.getLong("cache_event",0) ;
+        if (cacheEventTime > 0){
+            long currentTime = new Date().getTime() ;
+            long difference = currentTime - cacheEventTime ;
+            long seconds = difference / 1000 ;
+            if (seconds > 60 * 60 * 24 * 30){
+                return true ;
+            }
+        }
+
+        return false ;
+    }
+
+    boolean cacheTeamExpire(){
+        long cacheTeamTime = preferences.getLong("cache_team",0) ;
+        if (cacheTeamTime > 0){
+            long currenTime = new Date().getTime() ;
+            long difference = currenTime - cacheTeamTime ;
+            long seconds = difference / 1000 ;
+            if (seconds > 60 * 60){
+                return true ;
+            }
+        }
+        return false ;
     }
 }
