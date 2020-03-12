@@ -12,6 +12,8 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.bolasepak.EventActivity;
+import com.example.bolasepak.OnSigleClickListener;
 import com.example.bolasepak.R;
 import com.example.bolasepak.event.MatchData;
 import com.squareup.picasso.Picasso;
@@ -92,7 +94,7 @@ public class MatchAdapter extends RecyclerView.Adapter<MatchAdapter.MyHolder> {
         // agar tiap recycler view bisa di click
         holder.match_container.setOnClickListener(new OnSigleClickListener() {
             @Override
-            public void singleClick(View V) {
+            public void onClick(View v) {
                 if (isClick) {
                     Intent intent = new Intent(
                             context,
