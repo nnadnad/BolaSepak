@@ -39,15 +39,15 @@ langkah yang telah dilakukan oleh pengguna setiap harinya.
 ## Screenshot aplikasi
 1. Homescreen
 
-![Home Screen]()
+![Home Screen](assets/homescreen.jpg)
 
 2. Event Detail
 
-![Event Detail]()
+![Event Detail](assets/eventdetail.jpg)
 
 3. Team Detail
 
-![Team Detail]()
+![Team Detail](assets/teamdetail.jpg)
 
 
 
