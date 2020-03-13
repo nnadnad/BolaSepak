@@ -24,6 +24,10 @@ langkah yang telah dilakukan oleh pengguna setiap harinya.
     ke recycler view menggunakan adapter
     5. Adapter juga berfungsi untuk memasukan data-data yang telah diambil ke
     dalam template
+    6. Schedule ini akan ditampilkan di halaman homescreen dan juga halaman
+    team detail. Di dalam halaman team detail berisi event-event yang telah
+    dilakukan oleh sebuah team maupun yang akan dilakukan oleh sebuah tim. Kedua
+    nya ditampilkan ke dalam bentuk Tab, menggunakan fragment.
     
 ## Library yang digunakan dan justifikasi penggunaannya
     1. Volley
