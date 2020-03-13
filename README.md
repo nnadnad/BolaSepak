@@ -3,7 +3,7 @@
 
 ## Deskripsi aplikasi
 BolaSepak merupakan sebuah aplikasi berbasis android dengan fitur utama berupa 
-pemberitahuan jadwal dan pertandingan, statistik pertandingan, dan track record 
+pemberitahuan jadwal pertandingan, statistik pertandingan, dan track record 
 suatu team. Pada aplikasi ini, pengguna dapat mensubscribe terhadap suatu tim 
 sepak bola pilihan-nya dan dengan mensubscribe, pengguna akan menerima 
 notifikasi apabila tim tersebut akan bertanding. Selain itu, juga terdapat 
