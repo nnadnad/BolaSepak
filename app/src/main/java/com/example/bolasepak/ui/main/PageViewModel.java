@@ -26,4 +26,18 @@ public class PageViewModel extends ViewModel {
     public LiveData<String> getText() {
         return mText;
     }
+    /*
+    private Integer mIndex = new Integer(1);
+    private String mText;
+
+    public void setIndex(int index) {
+        mIndex = index;
+    }
+
+    public String getText() {
+        TeamDetail teamDetail = new TeamDetail();
+        mText = teamDetail.getRequest(mIndex);
+        return mText;
+    }
+    */
 }

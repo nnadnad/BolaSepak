@@ -1,21 +1,20 @@
 package com.example.bolasepak;
 
 import android.os.Bundle;
+import android.util.Log;
 
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.snackbar.Snackbar;
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
 import com.google.android.material.tabs.TabLayout;
 
 import androidx.viewpager.widget.ViewPager;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.view.Menu;
-import android.view.MenuItem;
-import android.view.View;
-
 import com.example.bolasepak.ui.main.SectionsPagerAdapter;
 
-import java.io.IOException;
+import org.json.JSONObject;
 
 public class TeamDetail extends AppCompatActivity {
 
@@ -28,15 +27,6 @@ public class TeamDetail extends AppCompatActivity {
         viewPager.setAdapter(sectionsPagerAdapter);
         TabLayout tabs = findViewById(R.id.tabs);
         tabs.setupWithViewPager(viewPager);
-        FloatingActionButton fab = findViewById(R.id.fab);
-
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
     }
 
     public String getRequest(int input) {
@@ -51,33 +41,24 @@ public class TeamDetail extends AppCompatActivity {
 
         final String[] stringResponse = {url};
 
-        if (input == 1) {
-            stringResponse[0] = "";
-        }
-
-        /*
-        // Uses Volley
-        // Instantiate the RequestQueue.
-        RequestQueue queue = Volley.newRequestQueue(this);
-
-        // Request a string response from the provided URL.
-        StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
-                new Response.Listener<String>() {
-                    @Override
-                    public void onResponse(String response) {
-                        // Display the first 500 characters of the response string.
-                        stringResponse[0] = response.substring(0, 500);
-                    }
-                }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                stringResponse[0] = "That didn't work!";
-            }
-        });
-
-        // Add the request to the RequestQueue.
-        queue.add(stringRequest);
-        */
+//        //request upcoming match
+//        JsonObjectRequest jsonObjectRequestUpcoming = new JsonObjectRequest(Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
+//            @Override
+//            public void onResponse(JSONObject responseUpcoming) {
+//                // Log.d("response: ", responseUpcoming.toString());
+//                stringResponse[0] = responseUpcoming.toString();
+//            }
+//        },
+//                new Response.ErrorListener() {
+//                    @Override
+//                    public void onErrorResponse(VolleyError error) {
+//                        Log.e("Error JSONObjectresp: ", error.toString());
+//                        // TODO: Handle error
+//                    }
+//                });
+//
+//        // Access the RequestQueue through your singleton class.
+//        MySingleton.getInstance(this).addToRequestQueue(jsonObjectRequestUpcoming);
 
         return stringResponse[0];
     }
