@@ -36,8 +36,12 @@ langkah yang telah dilakukan oleh pengguna setiap harinya.
         Digunakan untuk menempelkan foto dari data di API yang berbentuk
         url ke template yang berbentuk imageView.
     3. RecyclerView
-        Digunakan untuk 
-    4. JSON
+        Digunakan untuk membentuk view untuk menampilkan data dari API, sejumlah
+        hasil data yang diperoleh.
+    4. CardView
+        Digunakan untuk menampilkan data dalam bentuk "Card", yang nantinya akan
+        dimasukan juga ke dalam RecyclerView
+    5. JSON
         Digunakan untuk melakukan pengambilan data API.
 
 ## Screenshot aplikasi
