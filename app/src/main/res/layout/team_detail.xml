@@ -61,6 +61,7 @@
         android:layout_height="wrap_content"
         android:background="@drawable/item_match"
         app:tabTextColor="@color/DarkBg"
+        android:layout_margin="20dp"
         android:id="@+id/tabLayout"
         app:tabMaxWidth="0dp"
         app:tabGravity="fill"
