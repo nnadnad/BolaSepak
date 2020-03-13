@@ -21,6 +21,6 @@
 
     <string name="intentGoalsTimHome">goalsTimHome</string>
     <string name="intentGoalsTimAway">goalsTimAway</string>
-    <string name="langkah">Langkah/hari.........</string>
+    <string name="langkah">6000 Langkah/hari.........</string>
 
 </resources>

@@ -5,6 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/DarkBg"
     android:orientation="vertical"
     android:padding="10dp"
     tools:context=".EventActivity">
@@ -14,8 +15,9 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:weightSum="4"
+        android:padding="10dp"
         android:layout_marginTop="40dp"
-        android:background="@color/Whita"
+        android:background="@drawable/item_match"
         >
 
         <LinearLayout
@@ -146,9 +148,10 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="30dp"
+        android:padding="10dp"
         android:weightSum="4"
-        android:background="@color/Whita"
+        android:background="@drawable/item_match"
         >
 
         <LinearLayout
@@ -213,9 +216,10 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
+        android:padding="10dp"
         android:weightSum="4"
-        android:layout_marginTop="10dp"
-        android:background="@color/Whita"
+        android:layout_marginTop="30dp"
+        android:background="@drawable/item_match"
         >
 
         <LinearLayout

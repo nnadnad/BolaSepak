@@ -4,6 +4,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+    android:background="@color/DarkBg"
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context=".TeamDetail">
@@ -33,8 +34,8 @@
                 android:layout_height="wrap_content"
                 android:text="Barcelona"
                 android:gravity="center"
-                android:textSize="18sp"
-                android:textColor="@color/colorBlack"
+                android:textSize="30sp"
+                android:textColor="@color/Whita"
                 android:id="@+id/tvNamaTim"
                 />
 
@@ -58,7 +59,7 @@
     <android.support.design.widget.TabLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/Whita"
+        android:background="@drawable/item_match"
         app:tabTextColor="@color/DarkBg"
         android:id="@+id/tabLayout"
         app:tabMaxWidth="0dp"
