@@ -69,8 +69,8 @@ public class Sesudah extends Fragment {
         hashMapUrl = sqLiteManager.getDataTableTeam() ;
 
         preferences = PreferenceManager.getDefaultSharedPreferences(getActivity()) ;
-        sqLiteManager.createTableTeamEvents_NextEvent(idTeam); ;
-        ArrayList<MatchData> cache = sqLiteManager.getEvents_NextEvent(idTeam) ;
+        sqLiteManager.createTableNextMatch(idTeam); ;
+        ArrayList<MatchData> cache = sqLiteManager.getEventsNextMatch(idTeam) ;
         boolean isCacheExpire = false ;
         long cacheTime = preferences.getLong("cache_team_events" + idTeam,0) ;
         if (cacheTime > 0){
@@ -153,11 +153,11 @@ public class Sesudah extends Fragment {
                         matchDataArrayList.add(matchData) ;
                     }
 
-                    sqLiteManager.deleteOldCachceEvents_NextEvent(idTeam);
+                    sqLiteManager.deleteDataNextMatch(idTeam);
                     for(int i = 0 ; i < matchDataArrayList.size() ; i ++ ){
-                        sqLiteManager.addDataEvent_NextEvent(matchDataArrayList.get(i),idTeam);
+                        sqLiteManager.addDataNextMatch(matchDataArrayList.get(i),idTeam);
 
-                        registerNotification(matchDataArrayList.get(i),idTeam);
+                        //registerNotification(matchDataArrayList.get(i),idTeam);
                     }
                     preferences.edit().putLong("cache_team_events"  + idTeam,new Date().getTime()).apply();
 

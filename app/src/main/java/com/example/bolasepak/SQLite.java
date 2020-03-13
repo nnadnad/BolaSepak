@@ -5,10 +5,12 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
 
 import androidx.annotation.Nullable;
 
 import com.example.bolasepak.event.MatchData;
+import com.example.bolasepak.event.Notif;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -66,21 +68,21 @@ public class SQLite extends SQLiteOpenHelper {
         SQLiteDatabase sqLiteDatabase = this.getWritableDatabase() ;
         ContentValues contentValues = new ContentValues() ;
 
-        contentValues.put("id_event",matchData.getId_match()) ;
-        contentValues.put("id_home",matchData.getId_home_team()) ;
-        contentValues.put("id_away",matchData.getId_away_team()) ;
-        contentValues.put("name_home_team",matchData.getNama_home_team()) ;
-        contentValues.put("name_away_team",matchData.getNama_away_team()) ;
-        contentValues.put("home_score",matchData.getScore_home_team()) ;
-        contentValues.put("away_score",matchData.getScore_away_team()) ;
-        contentValues.put("url_home",matchData.getLogo_home_team()) ;
-        contentValues.put("url_away",matchData.getLogo_away_team()) ;
-        contentValues.put("home_shots",matchData.getShots_home_team()) ;
-        contentValues.put("away_shots",matchData.getShots_away_team()) ;
-        contentValues.put("goal_home",matchData.getGoals_home_team()) ;
-        contentValues.put("goal_away",matchData.getGoals_away_team()) ;
-        contentValues.put("date_event",matchData.getMatch_date()) ;
-        contentValues.put("time_event",matchData.getMatch_time()) ;
+        contentValues.put("id_event",matchData.getIdEvent()) ;
+        contentValues.put("id_home",matchData.getIdHomeTeam()) ;
+        contentValues.put("id_away",matchData.getIdAwayTeam()) ;
+        contentValues.put("name_home_team",matchData.getNameHomeTeam()) ;
+        contentValues.put("name_away_team",matchData.getNameAwayTeam()) ;
+        contentValues.put("home_score",matchData.getHomeScore()) ;
+        contentValues.put("away_score",matchData.getAwayScore()) ;
+        contentValues.put("url_home",matchData.getUrlLogoHome()) ;
+        contentValues.put("url_away",matchData.getUrlLogoAway()) ;
+        contentValues.put("home_shots",matchData.getIntHomeShots()) ;
+        contentValues.put("away_shots",matchData.getIntAwayShots()) ;
+        contentValues.put("goal_home",matchData.getHomeGoalsDetails()) ;
+        contentValues.put("goal_away",matchData.getAwayGoalsDetails()) ;
+        contentValues.put("date_event",matchData.getDateEvent()) ;
+        contentValues.put("time_event",matchData.getTimeEvent()) ;
 
         sqLiteDatabase.insert("event_match",null, contentValues) ;
         sqLiteDatabase.close();
@@ -94,21 +96,21 @@ public class SQLite extends SQLiteOpenHelper {
         if (cursor.moveToFirst()){
             do{
                 MatchData matchData = new MatchData() ;
-                matchData.setId_match(cursor.getString(0));
-                matchData.setId_home_team(cursor.getString(1));
-                matchData.setId_away_team(cursor.getString(2));
-                matchData.setNama_home_team(cursor.getString(3));
-                matchData.setNama_away_team(cursor.getString(4));
-                matchData.setScore_home_team(cursor.getString(5));
-                matchData.setScore_away_team(cursor.getString(6));
-                matchData.setLogo_home_team(cursor.getString(7));
-                matchData.setLogo_away_team(cursor.getString(8));
-                matchData.setShots_home_team(cursor.getString(9));
-                matchData.setShots_away_team(cursor.getString(10));
-                matchData.setGoals_home_team(cursor.getString(11));
-                matchData.setGoals_away_team(cursor.getString(12));
-                matchData.setMatch_date(cursor.getString(13));
-                matchData.setMatch_time(cursor.getString(14));
+                matchData.setIdEvent(cursor.getString(0));
+                matchData.setIdHomeTeam(cursor.getString(1));
+                matchData.setIdAwayTeam(cursor.getString(2));
+                matchData.setNameHomeTeam(cursor.getString(3));
+                matchData.setNameAwayTeam(cursor.getString(4));
+                matchData.setHomeScore(cursor.getString(5));
+                matchData.setAwayScore(cursor.getString(6));
+                matchData.setUrlLogoHome(cursor.getString(7));
+                matchData.setUrlLogoAway(cursor.getString(8));
+                matchData.setIntHomeShots(cursor.getString(9));
+                matchData.setIntAwayShots(cursor.getString(10));
+                matchData.setHomeGoalsDetails(cursor.getString(11));
+                matchData.setAwayGoalsDetails(cursor.getString(12));
+                matchData.setDateEvent(cursor.getString(13));
+                matchData.setTimeEvent(cursor.getString(14));
 
                 data = matchData ;
 
@@ -125,21 +127,21 @@ public class SQLite extends SQLiteOpenHelper {
             do{
                 MatchData matchData = new MatchData() ;
 
-                matchData.setId_match(cursor.getString(0));
-                matchData.setId_home_team(cursor.getString(1));
-                matchData.setId_away_team(cursor.getString(2));
-                matchData.setNama_home_team(cursor.getString(3));
-                matchData.setNama_away_team(cursor.getString(4));
-                matchData.setScore_home_team(cursor.getString(5));
-                matchData.setScore_away_team(cursor.getString(6));
-                matchData.setLogo_home_team(cursor.getString(7));
-                matchData.setLogo_away_team(cursor.getString(8));
-                matchData.setShots_home_team(cursor.getString(9));
-                matchData.setShots_away_team(cursor.getString(10));
-                matchData.setGoals_home_team(cursor.getString(11));
-                matchData.setGoals_away_team(cursor.getString(12));
-                matchData.setMatch_date(cursor.getString(13));
-                matchData.setMatch_time(cursor.getString(14));
+                matchData.setIdEvent(cursor.getString(0));
+                matchData.setIdHomeTeam(cursor.getString(1));
+                matchData.setIdAwayTeam(cursor.getString(2));
+                matchData.setNameHomeTeam(cursor.getString(3));
+                matchData.setNameAwayTeam(cursor.getString(4));
+                matchData.setHomeScore(cursor.getString(5));
+                matchData.setAwayScore(cursor.getString(6));
+                matchData.setUrlLogoHome(cursor.getString(7));
+                matchData.setUrlLogoAway(cursor.getString(8));
+                matchData.setIntHomeShots(cursor.getString(9));
+                matchData.setIntAwayShots(cursor.getString(10));
+                matchData.setHomeGoalsDetails(cursor.getString(11));
+                matchData.setAwayGoalsDetails(cursor.getString(12));
+                matchData.setDateEvent(cursor.getString(13));
+                matchData.setTimeEvent(cursor.getString(14));
 
                 data.add(matchData);
             }while (cursor.moveToNext()) ;
@@ -154,21 +156,21 @@ public class SQLite extends SQLiteOpenHelper {
         if (cursor.moveToFirst()){
             do{
                 MatchData matchData = new MatchData() ;
-                matchData.setId_match(cursor.getString(0));
-                matchData.setId_home_team(cursor.getString(1));
-                matchData.setId_away_team(cursor.getString(2));
-                matchData.setNama_home_team(cursor.getString(3));
-                matchData.setNama_away_team(cursor.getString(4));
-                matchData.setScore_home_team(cursor.getString(5));
-                matchData.setScore_away_team(cursor.getString(6));
-                matchData.setLogo_home_team(cursor.getString(7));
-                matchData.setLogo_away_team(cursor.getString(8));
-                matchData.setShots_home_team(cursor.getString(9));
-                matchData.setShots_away_team(cursor.getString(10));
-                matchData.setGoals_home_team(cursor.getString(11));
-                matchData.setGoals_away_team(cursor.getString(12));
-                matchData.setMatch_date(cursor.getString(13));
-                matchData.setMatch_time(cursor.getString(14));
+                matchData.setIdEvent(cursor.getString(0));
+                matchData.setIdHomeTeam(cursor.getString(1));
+                matchData.setIdAwayTeam(cursor.getString(2));
+                matchData.setNameHomeTeam(cursor.getString(3));
+                matchData.setNameAwayTeam(cursor.getString(4));
+                matchData.setHomeScore(cursor.getString(5));
+                matchData.setAwayScore(cursor.getString(6));
+                matchData.setUrlLogoHome(cursor.getString(7));
+                matchData.setUrlLogoAway(cursor.getString(8));
+                matchData.setIntHomeShots(cursor.getString(9));
+                matchData.setIntAwayShots(cursor.getString(10));
+                matchData.setHomeGoalsDetails(cursor.getString(11));
+                matchData.setAwayGoalsDetails(cursor.getString(12));
+                matchData.setDateEvent(cursor.getString(13));
+                matchData.setTimeEvent(cursor.getString(14));
 
                 data.add(matchData);
             }while (cursor.moveToNext()) ;
@@ -218,6 +220,237 @@ public class SQLite extends SQLiteOpenHelper {
         }
         return data ;
     }
+
+
+
+    //Next Event
+    public void createTableNextMatch(String idTeam){
+        SQLiteDatabase sqLiteDatabase = this.getWritableDatabase() ;
+        String sql = "CREATE TABLE IF NOT EXISTS team" + idTeam + "next_event" +
+                "(" +
+                "id_event TEXT NOT NULL" + " , " +
+                "id_home TEXT NOT NULL" + " , " +
+                "id_away TEXT NOT NULL" + " , " +
+                "name_home_team TEXT NOT NULL" + " , " +
+                "name_away_team TEXT NOT NULL" + " , " +
+                "home_score TEXT NOT NULL" + " , " +
+                "away_score TEXT NOT NULL" + " , " +
+                "url_home TEXT NOT NULL" + " , " +
+                "url_away TEXT NOT NULL" + " , " +
+                "home_shots TEXT NOT NULL" + " , " +
+                "away_shots TEXT NOT NULL" + " , " +
+                "goal_home TEXT NOT NULL" + " , " +
+                "goal_away TEXT NOT NULL" + " , " +
+                "date_event TEXT NOT NULL" + " , " +
+                "time_event TEXT NOT NULL" +
+                ")";
+        sqLiteDatabase.execSQL(sql);
+    }
+    public void deleteDataNextMatch(String idTeam){
+        SQLiteDatabase sqLiteDatabase = this.getWritableDatabase() ;
+        sqLiteDatabase.execSQL("DELETE FROM team" + idTeam + "next_event");
+    }
+    public void addDataNextMatch(MatchData matchData,String idTeam){
+        SQLiteDatabase sqLiteDatabase = this.getWritableDatabase() ;
+        ContentValues contentValues = new ContentValues() ;
+
+        contentValues.put("id_event",matchData.getIdEvent()) ;
+        contentValues.put("id_home",matchData.getIdHomeTeam()) ;
+        contentValues.put("id_away",matchData.getIdAwayTeam()) ;
+        contentValues.put("name_home_team",matchData.getNameHomeTeam()) ;
+        contentValues.put("name_away_team",matchData.getNameAwayTeam()) ;
+        contentValues.put("home_score",matchData.getHomeScore()) ;
+        contentValues.put("away_score",matchData.getAwayScore()) ;
+        contentValues.put("url_home",matchData.getUrlLogoHome()) ;
+        contentValues.put("url_away",matchData.getUrlLogoAway()) ;
+        contentValues.put("home_shots",matchData.getIntHomeShots()) ;
+        contentValues.put("away_shots",matchData.getIntAwayShots()) ;
+        contentValues.put("goal_home",matchData.getHomeGoalsDetails()) ;
+        contentValues.put("goal_away",matchData.getAwayGoalsDetails()) ;
+        contentValues.put("date_event",matchData.getDateEvent()) ;
+        contentValues.put("time_event",matchData.getTimeEvent()) ;
+
+        sqLiteDatabase.insert("team" + idTeam + "next_event",null, contentValues) ;
+        sqLiteDatabase.close();
+
+    }
+    public ArrayList<MatchData> getEventsNextMatch(String idTeam){
+        ArrayList<MatchData> data = new ArrayList<>() ;
+        SQLiteDatabase sqLiteDatabase = this.getWritableDatabase() ;
+        Cursor cursor = sqLiteDatabase.rawQuery("SELECT * FROM team" + idTeam + "next_event",null) ;
+        if (cursor.moveToFirst()){
+            do{
+                MatchData matchData = new MatchData() ;
+
+                matchData.setIdEvent(cursor.getString(0));
+                matchData.setIdHomeTeam(cursor.getString(1));
+                matchData.setIdAwayTeam(cursor.getString(2));
+                matchData.setNameHomeTeam(cursor.getString(3));
+                matchData.setNameAwayTeam(cursor.getString(4));
+                matchData.setHomeScore(cursor.getString(5));
+                matchData.setAwayScore(cursor.getString(6));
+                matchData.setUrlLogoHome(cursor.getString(7));
+                matchData.setUrlLogoAway(cursor.getString(8));
+                matchData.setIntHomeShots(cursor.getString(9));
+                matchData.setIntAwayShots(cursor.getString(10));
+                matchData.setHomeGoalsDetails(cursor.getString(11));
+                matchData.setAwayGoalsDetails(cursor.getString(12));
+                matchData.setDateEvent(cursor.getString(13));
+                matchData.setTimeEvent(cursor.getString(14));
+
+                data.add(matchData);
+            }while (cursor.moveToNext()) ;
+        }
+        return data ;
+    }
+
+
+    //Last Event
+    public void createTableLastMatch(String idTeam){
+        SQLiteDatabase sqLiteDatabase = this.getWritableDatabase() ;
+        String sql = "CREATE TABLE IF NOT EXISTS team" + idTeam + "last_event" +
+                "(" +
+                "id_event TEXT NOT NULL" + " , " +
+                "id_home TEXT NOT NULL" + " , " +
+                "id_away TEXT NOT NULL" + " , " +
+                "name_home_team TEXT NOT NULL" + " , " +
+                "name_away_team TEXT NOT NULL" + " , " +
+                "home_score TEXT NOT NULL" + " , " +
+                "away_score TEXT NOT NULL" + " , " +
+                "url_home TEXT NOT NULL" + " , " +
+                "url_away TEXT NOT NULL" + " , " +
+                "home_shots TEXT NOT NULL" + " , " +
+                "away_shots TEXT NOT NULL" + " , " +
+                "goal_home TEXT NOT NULL" + " , " +
+                "goal_away TEXT NOT NULL" + " , " +
+                "date_event TEXT NOT NULL" + " , " +
+                "time_event TEXT NOT NULL" +
+                ")";
+        sqLiteDatabase.execSQL(sql);
+    }
+    public void deleteDataLastMatch(String idTeam){
+        SQLiteDatabase sqLiteDatabase = this.getWritableDatabase() ;
+        sqLiteDatabase.execSQL("DELETE FROM team" + idTeam + "last_event");
+    }
+    public void addDataLastMatch(MatchData matchData,String idTeam){
+        SQLiteDatabase sqLiteDatabase = this.getWritableDatabase() ;
+        ContentValues contentValues = new ContentValues() ;
+
+        contentValues.put("id_event",matchData.getIdEvent()) ;
+        contentValues.put("id_home",matchData.getIdHomeTeam()) ;
+        contentValues.put("id_away",matchData.getIdAwayTeam()) ;
+        contentValues.put("name_home_team",matchData.getNameHomeTeam()) ;
+        contentValues.put("name_away_team",matchData.getNameAwayTeam()) ;
+        contentValues.put("home_score",matchData.getHomeScore()) ;
+        contentValues.put("away_score",matchData.getAwayScore()) ;
+        contentValues.put("url_home",matchData.getUrlLogoHome()) ;
+        contentValues.put("url_away",matchData.getUrlLogoAway()) ;
+        contentValues.put("home_shots",matchData.getIntHomeShots()) ;
+        contentValues.put("away_shots",matchData.getIntAwayShots()) ;
+        contentValues.put("goal_home",matchData.getHomeGoalsDetails()) ;
+        contentValues.put("goal_away",matchData.getAwayGoalsDetails()) ;
+        contentValues.put("date_event",matchData.getDateEvent()) ;
+        contentValues.put("time_event",matchData.getTimeEvent()) ;
+
+        sqLiteDatabase.insert("team" + idTeam + "last_event",null, contentValues) ;
+        sqLiteDatabase.close();
+
+    }
+    public ArrayList<MatchData> getEventsLastMatch(String idTeam){
+        ArrayList<MatchData> data = new ArrayList<>() ;
+        SQLiteDatabase sqLiteDatabase = this.getWritableDatabase() ;
+        Cursor cursor = sqLiteDatabase.rawQuery("SELECT * FROM team" + idTeam + "last_event",null) ;
+        if (cursor.moveToFirst()){
+            do{
+                MatchData matchData = new MatchData() ;
+
+                matchData.setIdEvent(cursor.getString(0));
+                matchData.setIdHomeTeam(cursor.getString(1));
+                matchData.setIdAwayTeam(cursor.getString(2));
+                matchData.setNameHomeTeam(cursor.getString(3));
+                matchData.setNameAwayTeam(cursor.getString(4));
+                matchData.setHomeScore(cursor.getString(5));
+                matchData.setAwayScore(cursor.getString(6));
+                matchData.setUrlLogoHome(cursor.getString(7));
+                matchData.setUrlLogoAway(cursor.getString(8));
+                matchData.setIntHomeShots(cursor.getString(9));
+                matchData.setIntAwayShots(cursor.getString(10));
+                matchData.setHomeGoalsDetails(cursor.getString(11));
+                matchData.setAwayGoalsDetails(cursor.getString(12));
+                matchData.setDateEvent(cursor.getString(13));
+                matchData.setTimeEvent(cursor.getString(14));
+
+                data.add(matchData);
+            }while (cursor.moveToNext()) ;
+        }
+        return data ;
+    }
+
+    public void AddNotif(String event_id, String team_id){
+
+        SQLiteDatabase sqLiteDatabase = this.getWritableDatabase() ;
+        ContentValues contentValues = new ContentValues() ;
+
+        contentValues.put("id_event",event_id) ;
+        contentValues.put("id_team",team_id) ;
+        sqLiteDatabase.insert("notif",null, contentValues);
+        sqLiteDatabase.close();
+
+    }
+
+    public Notif GetNotif(String event_id, String team_id){
+
+        SQLiteDatabase sqLiteDatabase = this.getWritableDatabase() ;
+        Cursor cursor = sqLiteDatabase.rawQuery("SELECT * FROM notif WHERE id_team=" + team_id +
+                " AND id_event = " + event_id + ";",null);
+        if(cursor.moveToFirst()){
+            Notif n = new Notif();
+            do {
+                n.setEventId(cursor.getString(0));
+                n.setTeamId(cursor.getString(1));
+            } while (cursor.moveToNext());
+
+            return n;
+
+        } else {
+
+            return null;
+        }
+    }
+
+    int GetNumberOfEventNotif(String event_id){
+        SQLiteDatabase sqLiteDatabase = this.getWritableDatabase();
+        Cursor cursor = sqLiteDatabase.rawQuery("SELECT COUNT(*) AS count FROM notif WHERE id_event="
+                + event_id + ";" ,null);
+        if (cursor.moveToFirst()){
+            return Integer.parseInt(cursor.getString(0));
+        }
+
+        return 0;
+    }
+
+    void DeleteNotif(String event_id, String team_id){
+        SQLiteDatabase sqLiteDatabase = this.getWritableDatabase() ;
+        String sql_query = "DELETE FROM notif WHERE id_event=" + event_id +
+                " AND id_team=" + team_id + ";";
+        sqLiteDatabase.execSQL(sql_query);
+
+        sqLiteDatabase.close();
+    }
+
+
+    public void DeleteEventNotif(String event_id){
+
+        SQLiteDatabase sqLiteDatabase = this.getWritableDatabase() ;
+        String sql_query = "DELETE FROM notif WHERE id_event=" + event_id + ";";
+        sqLiteDatabase.execSQL(sql_query);
+        sqLiteDatabase.close();
+
+//        Log.d("Event Notification","All notification for event with id:" + event_id
+//                + " has been deleted");
+
+    }
+    
 
 
 }

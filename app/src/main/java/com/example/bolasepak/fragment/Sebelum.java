@@ -70,8 +70,8 @@ public class Sebelum extends Fragment {
 
         preferences = PreferenceManager.getDefaultSharedPreferences(getActivity()) ;
 
-        sqLiteManager.createTableTeamEvents_LastEvent(idTeam); ;
-        ArrayList<MatchData> cache = sqLiteManager.getEvents_LastEvent(idTeam) ;
+        sqLiteManager.createTableLastMatch(idTeam); ;
+        ArrayList<MatchData> cache = sqLiteManager.getEventsLastMatch(idTeam) ;
         boolean isCacheExpire = false ;
         long cacheTime = preferences.getLong("cache_team_events" + idTeam,0) ;
         if (cacheTime > 0){
@@ -155,9 +155,9 @@ public class Sebelum extends Fragment {
                         matchDataArrayList.add(eventPertandingan) ;
                     }
 
-                    sqLiteManager.deleteOldCachceEvents_LastEvent(idTeam);
+                    sqLiteManager.deleteDataLastMatch(idTeam);
                     for(int i = 0 ; i < matchDataArrayList.size() ; i ++ ){
-                        sqLiteManager.addDataEvent_LastEvent(matchDataArrayList.get(i),idTeam);
+                        sqLiteManager.addDataLastMatch(matchDataArrayList.get(i),idTeam);
                     }
 
                     preferences.edit().putLong("cache_team_events" + idTeam,new Date().getTime()).apply();

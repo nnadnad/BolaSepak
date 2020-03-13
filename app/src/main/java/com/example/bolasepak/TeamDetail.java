@@ -1,5 +1,6 @@
 package com.example.bolasepak;
 
+import android.annotation.SuppressLint;
 import android.app.AlarmManager;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
@@ -23,6 +24,7 @@ import androidx.viewpager.widget.ViewPager;
 
 import com.example.bolasepak.adapter.PageAdapter;
 import com.example.bolasepak.event.MatchData;
+import com.example.bolasepak.notif.Notification;
 import com.google.android.material.tabs.TabItem;
 import com.google.android.material.tabs.TabLayout;
 import com.squareup.picasso.Picasso;
@@ -103,7 +105,7 @@ public class TeamDetail extends AppCompatActivity {
         preferences = PreferenceManager.getDefaultSharedPreferences(this) ;
         boolean isSubscribed = preferences.getBoolean("sub_" + idTeam,false) ;
         if (isSubscribed){
-            btnSubscribe.setBackgroundResource(R.drawable.button_clicked);
+            btnSubscribe.setBackgroundResource(R.drawable.btn_click);
         }
 
         btnSubscribe.setOnClickListener(new View.OnClickListener() {
@@ -111,11 +113,11 @@ public class TeamDetail extends AppCompatActivity {
             public void onClick(View v) {
                 boolean isSubscribed = preferences.getBoolean("sub_" + idTeam,false) ;
                 if (isSubscribed){
-                    btnSubscribe.setBackgroundResource(R.drawable.button_released);
+                    btnSubscribe.setBackgroundResource(R.drawable.btn_unclick);
                     preferences.edit().putBoolean("sub_" + idTeam,false).apply();
                     deleteMatchesAlarms(idTeam);
                 }else {
-                    btnSubscribe.setBackgroundResource(R.drawable.button_clicked);
+                    btnSubscribe.setBackgroundResource(R.drawable.btn_click);
                     preferences.edit().putBoolean("sub_" + idTeam,true).apply();
                     createMatchesAlarm(idTeam);
                 }
@@ -133,7 +135,7 @@ public class TeamDetail extends AppCompatActivity {
     void createMatchesAlarm(String idTeam) {
 
         // get all matches from db
-        ArrayList<MatchData> matches = sqLiteManager.getEvents_NextEvent(idTeam);
+        ArrayList<MatchData> matches = sqLiteManager.getEventsNextMatch(idTeam);
         for (MatchData match : matches){
             createNotificationPendingIntent(match,idTeam);
             Log.d("PendingIntent","Create PendingIntent with request_code = " + match.getIdEvent());
@@ -155,10 +157,10 @@ public class TeamDetail extends AppCompatActivity {
         final NotificationManager mNotificationManager =
                 (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
         final AlarmManager mAlarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
-        Intent notifyIntent = new Intent(this, AlarmReceiver.class);
+        Intent notifyIntent = new Intent(this, Notification.class);
 
         // get list of matches
-        ArrayList<MatchData>matches = sqLiteManager.getEvents_NextEvent(idTeam);
+        ArrayList<MatchData>matches = sqLiteManager.getEventsNextMatch(idTeam);
 
         for (MatchData match : matches){
             PendingIntent pendingIntent = PendingIntent.getBroadcast(
@@ -222,7 +224,7 @@ public class TeamDetail extends AppCompatActivity {
         // get trigger time
 
         String match_time_str = match.getDateEvent() + " " + match.getTimeEvent();
-        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        @SuppressLint("SimpleDateFormat") SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
         try{
 
@@ -233,7 +235,7 @@ public class TeamDetail extends AppCompatActivity {
 
 
         } catch (Exception e){
-            Log.d("Exception : ",e.getMessage());
+            Log.d("Exception : ", Objects.requireNonNull(e.getMessage()));
             time_diff = -1;
 
         }
@@ -241,7 +243,7 @@ public class TeamDetail extends AppCompatActivity {
         // register only if time valid
         if(time_diff>=0){
 
-            notifyIntent = new Intent(this,AlarmReceiver.class);
+            notifyIntent = new Intent(this,Notification.class);
             addNotificationIntentExtras(notifyIntent,match);
 
             trigger_time = time_diff + SystemClock.elapsedRealtime();
@@ -261,37 +263,37 @@ public class TeamDetail extends AppCompatActivity {
         }
 
     }
-//    private long getIntentAlarmTime(Date current_time, Date match_time){
-//
-//        long time_diff = match_time.getTime() - current_time.getTime();
-//        if(time_diff < 0){
-//            time_diff = 0;
-//        }
-//
-//        return time_diff;
-//    }
-//    private void addNotificationIntentExtras(Intent notifyIntent, MatchData match){
-//        notifyIntent.putExtra("home",match.getNameHomeTeam());
-//        notifyIntent.putExtra("away",match.getNameAwayTeam());
-//        notifyIntent.putExtra("teamId",idTeam);
-//        notifyIntent.putExtra("eventId",match.getIdEvent());
-//    }
-//    private void registerNotification(PendingIntent pendingIntent, String id_event, String id_team, long time){
-//
-//        final AlarmManager mAlarmManager = (AlarmManager)
-//                getSystemService(ALARM_SERVICE);
-//
-//        // Register to alarm
-//        mAlarmManager.set(
-//                AlarmManager.RTC,
-//                time,
-//                pendingIntent
-//        );
-//
-//        // Register to database
-//        sqLiteManager.AddNotif(id_event,id_team);
-//
-//
-//
-//    }
+    private long getIntentAlarmTime(Date current_time, Date match_time){
+
+        long time_diff = match_time.getTime() - current_time.getTime();
+        if(time_diff < 0){
+            time_diff = 0;
+        }
+
+        return time_diff;
+    }
+    private void addNotificationIntentExtras(Intent notifyIntent, MatchData match){
+        notifyIntent.putExtra("home",match.getNameHomeTeam());
+        notifyIntent.putExtra("away",match.getNameAwayTeam());
+        notifyIntent.putExtra("teamId",idTeam);
+        notifyIntent.putExtra("eventId",match.getIdEvent());
+    }
+    private void registerNotification(PendingIntent pendingIntent, String id_event, String id_team, long time){
+
+        final AlarmManager mAlarmManager = (AlarmManager)
+                getSystemService(ALARM_SERVICE);
+
+        // Register to alarm
+        mAlarmManager.set(
+                AlarmManager.RTC,
+                time,
+                pendingIntent
+        );
+
+        // Register to database
+        sqLiteManager.AddNotif(id_event,id_team);
+
+
+
+    }
 }
