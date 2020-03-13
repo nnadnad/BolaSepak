@@ -13,7 +13,8 @@ import com.example.bolasepak.R;
 
 import java.util.ArrayList;
 
-public class GoalsAdapter extends RecyclerView.Adapter<GoalsAdapter.MyHolder> {
+public class GoalsAdapter extends RecyclerView.Adapter<GoalsAdapter.MyHolder>
+{
 
     private Context context ;
     private ArrayList<String> arrName ;
@@ -49,5 +50,4 @@ public class GoalsAdapter extends RecyclerView.Adapter<GoalsAdapter.MyHolder> {
             show_goal = itemView.findViewById(R.id.show_goal) ;
         }
     }
-
 }

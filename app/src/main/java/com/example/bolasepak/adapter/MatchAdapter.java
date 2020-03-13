@@ -13,114 +13,109 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.bolasepak.EventActivity;
-import com.example.bolasepak.OnSigleClickListener;
+import com.example.bolasepak.OnSingleClickListener;
 import com.example.bolasepak.R;
 import com.example.bolasepak.event.MatchData;
 import com.squareup.picasso.Picasso;
 
-import org.jetbrains.annotations.NotNull;
-
 import java.util.ArrayList;
 
 
-public class MatchAdapter extends RecyclerView.Adapter<MatchAdapter.MyHolder> {
-    private Context context;
-    private ArrayList<MatchData> matchData;
-    private boolean isClick;
+public class MatchAdapter extends RecyclerView.Adapter<MatchAdapter.MyHolder>
+{
+    private Context context ;
+    private ArrayList<MatchData> MatchDataArrayList ;
+    private boolean isClickable ;
 
-
-    public MatchAdapter(Context context, ArrayList<MatchData> matchData, boolean isClick) {
+    public MatchAdapter(Context context, ArrayList<MatchData> MatchDataArrayList, boolean isClickable) {
         this.context = context;
-        this.matchData = matchData;
-        this.isClick = isClick;
+        this.MatchDataArrayList = MatchDataArrayList;
+        this.isClickable = isClickable;
     }
 
-    public void filterData(ArrayList<MatchData> mData) {
-        this.matchData.clear();
-        this.matchData.addAll(mData);
+    public void setFilter(ArrayList<MatchData> data){
+        this.MatchDataArrayList.clear();
+        this.MatchDataArrayList.addAll(data) ;
         notifyDataSetChanged();
     }
 
-
-    @NotNull
+    @NonNull
     @Override
-    public MyHolder onCreateViewHolder(@NotNull ViewGroup viewGroup, int count) {
-        View view = LayoutInflater.from(context).inflate(R.layout.match_item,viewGroup,false);
+    public MyHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
+        View view = LayoutInflater.from(context).inflate(R.layout.match_item,viewGroup,false) ;
         return new MyHolder(view);
     }
 
-    public void onBindViewHolder(@NotNull MyHolder holder, int count) {
-        final MatchData matchData1 = matchData.get(count);
-        // try catch get logo team
+    @Override
+    public void onBindViewHolder(@NonNull MyHolder myHolder, int i) {
+        final MatchData MatchData = MatchDataArrayList.get(i) ;
+
         try {
-            Picasso.get().load(matchData1.getLogo_home_team()).into(holder.image_logo_home_team);
-        } catch (Exception ignored) {
-        }
-        try {
-            Picasso.get().load(matchData1.getLogo_away_team()).into(holder.image_logo_away_team);
-        } catch (Exception ignored) {
+            Picasso.get().load(MatchData.getUrlLogoHome()).into(myHolder.logo_home_team);
+        }catch (Exception ignored){
+
         }
 
-        //adapter to get nama tim
-        holder.nama_home_team.setText(matchData1.getNama_home_team());
-        holder.nama_away_team.setText(matchData1.getNama_away_team());
+        try {
+            Picasso.get().load(MatchData.getUrlLogoAway()).into(myHolder.logo_away_team);
+        }catch (Exception ignored){
 
-        //adapter id tiap event
-        final String id_match = matchData1.getId_match();
-        // agar tiap recycler view bisa di click
-        holder.match_container.setOnClickListener(new OnSigleClickListener() {
+        }
+
+        myHolder.id_home_team.setText(MatchData.getNameHomeTeam());
+        myHolder.id_away_team.setText(MatchData.getNameAwayTeam());
+
+        final String idEvent = MatchData.getIdEvent() ;
+        myHolder.match_container.setOnClickListener(new OnSingleClickListener() {
             @Override
             public void onSingleClick(View v) {
-                if (isClick){
+                if (isClickable){
                     Intent intent = new Intent(context, EventActivity.class) ;
-                    intent.putExtra("id_event",id_match) ;
+                    intent.putExtra("id_event",idEvent) ;
                     context.startActivity(intent);
                 }
             }
-        });
+        }) ;
 
-        if(matchData1.getScore_home_team().equals("null")) {
-            holder.score_home_team.setText("");
-            holder.score_away_team.setText("");
-        } else {
-            holder.score_home_team.setText(matchData1.getScore_home_team());
-            holder.score_away_team.setText(matchData1.getScore_away_team());
+        if (MatchData.getHomeScore().equals("null")){
+            myHolder.score_tim_home.setText("");
+            myHolder.score_tim_away.setText("");
+        }else{
+            myHolder.score_tim_home.setText(MatchData.getHomeScore());
+            myHolder.score_tim_away.setText(MatchData.getAwayScore());
         }
-        holder.match_date.setText(matchData1.getMatch_date());
-    }
 
+        myHolder.tgl_match.setText(MatchData.getDateEvent());
+
+    }
 
     @Override
     public int getItemCount() {
-        return matchData.size();
+        return MatchDataArrayList.size();
     }
 
-
-    static class MyHolder extends RecyclerView.ViewHolder {
-        ImageView image_logo_home_team ;
-        ImageView image_logo_away_team ;
-        TextView nama_home_team ;
-        TextView nama_away_team ;
-        TextView score_home_team;
-        TextView score_away_team;
-        TextView match_date ;
+    static class MyHolder extends RecyclerView.ViewHolder{
+        ImageView logo_home_team ;
+        ImageView logo_away_team ;
+        TextView id_home_team ;
+        TextView id_away_team ;
+        TextView score_tim_home;
+        TextView score_tim_away;
+        TextView tgl_match ;
         LinearLayout match_container ;
 
         MyHolder(@NonNull View itemView) {
             super(itemView);
-            image_logo_home_team = itemView.findViewById(R.id.logo_home_team) ;
-            image_logo_away_team = itemView.findViewById(R.id.logo_away_team) ;
-            nama_home_team = itemView.findViewById(R.id.id_home_team) ;
-            nama_away_team = itemView.findViewById(R.id.id_away_team) ;
-            score_home_team = itemView.findViewById(R.id.score_tim_home) ;
-            score_away_team = itemView.findViewById(R.id.score_tim_away) ;
-            match_date = itemView.findViewById(R.id.tgl_match) ;
+            logo_away_team = itemView.findViewById(R.id.logo_away_team) ;
+            logo_home_team = itemView.findViewById(R.id.logo_home_team) ;
+            id_home_team = itemView.findViewById(R.id.id_home_team) ;
+            id_away_team = itemView.findViewById(R.id.id_away_team) ;
+
+            score_tim_away = itemView.findViewById(R.id.score_tim_away) ;
+            score_tim_home = itemView.findViewById(R.id.score_tim_home) ;
+            tgl_match = itemView.findViewById(R.id.tgl_match) ;
 
             match_container = itemView.findViewById(R.id.match_container) ;
         }
     }
-
-
-
-
 }

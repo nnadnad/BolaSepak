@@ -1,124 +1,139 @@
 package com.example.bolasepak.event;
 
-public class MatchData {
-    private String id_match;
-    private String nama_home_team, nama_away_team;
-    private String score_home_team, score_away_team;
-    private String match_date, match_time;
-    private String id_home_team, id_away_team;
-    private String logo_home_team, logo_away_team;
-    private String shots_home_team, shots_away_team;
-    private String goals_home_team, goals_away_team;
+public class MatchData
+{
+    private String idEvent ;
+    private String nameHomeTeam, nameAwayTeam ;
+    private String homeScore, awayScore ;
+    private String dateEvent ;
+    private String timeEvent ;
 
+    private String idHomeTeam , idAwayTeam ;
+    private String urlLogoHome , urlLogoAway ;
 
-    //Method
-    public MatchData(){}
+    private String intHomeShots , intAwayShots;
+    private String homeGoalsDetails, awayGoalsDetails ;
 
-    public String getId_match(){
-        return id_match;
-    }
-    public void setId_match(String id_match){
-        this.id_match = id_match;
+    public MatchData() {
     }
 
-    public String getNama_home_team(){
-        return nama_home_team;
-    }
-    public void setNama_home_team(String nama_home_team) {
-        this.nama_home_team = nama_home_team;
+    public String getIntHomeShots() {
+        return intHomeShots;
     }
 
-    public String getNama_away_team(){
-        return nama_away_team;
-    }
-    public void setNama_away_team(String nama_away_team) {
-        this.nama_away_team = nama_away_team;
+    public void setIntHomeShots(String intHomeShots) {
+        this.intHomeShots = intHomeShots;
     }
 
-    public String getScore_home_team(){
-        return score_home_team;
-    }
-    public void setScore_home_team(String score_home_team){
-        this.score_home_team = score_home_team;
+    public String getIntAwayShots() {
+        return intAwayShots;
     }
 
-    public String getScore_away_team(){
-        return score_away_team;
-    }
-    public void setScore_away_team(String score_away_team){
-        this.score_away_team = score_away_team;
+    public void setIntAwayShots(String intAwayShots) {
+        this.intAwayShots = intAwayShots;
     }
 
-    public String getMatch_date(){
-        return match_date;
-    }
-    public void setMatch_date(String match_date){
-        this.match_date = match_date;
+    public String getHomeGoalsDetails() {
+        return homeGoalsDetails;
     }
 
-    public String getMatch_time(){
-        return match_time;
-    }
-    public void setMatch_time(String match_time){
-        this.match_time = match_time;
+    public void setHomeGoalsDetails(String homeGoalsDetails) {
+        this.homeGoalsDetails = homeGoalsDetails;
     }
 
-    public String getId_home_team(){
-        return id_home_team;
-    }
-    public void setId_home_team(String id_home_team){
-        this.id_home_team = id_home_team;
+    public String getAwayGoalsDetails() {
+        return awayGoalsDetails;
     }
 
-    public String getId_away_team(){
-        return id_away_team;
-    }
-    public void setId_away_team(String id_away_team){
-        this.id_away_team = id_away_team;
+    public void setAwayGoalsDetails(String awayGoalsDetails) {
+        this.awayGoalsDetails = awayGoalsDetails;
     }
 
-    public String getLogo_home_team(){
-        return logo_home_team;
-    }
-    public void setLogo_home_team(String logo_home_team){
-        this.logo_home_team = logo_home_team;
+    public String getUrlLogoHome() {
+        return urlLogoHome;
     }
 
-    public String getLogo_away_team(){
-        return logo_away_team;
-    }
-    public void setLogo_away_team(String logo_away_team){
-        this.logo_away_team = logo_away_team;
+    public void setUrlLogoHome(String urlLogoHome) {
+        this.urlLogoHome = urlLogoHome;
     }
 
-    public String getShots_home_team(){
-        return shots_home_team;
-    }
-    public void setShots_home_team(String shots_home_team){
-        this.shots_home_team = shots_home_team;
+    public String getUrlLogoAway() {
+        return urlLogoAway;
     }
 
-    public String getShots_away_team(){
-        return shots_away_team;
-    }
-    public void setShots_away_team(String shots_away_team){
-        this.shots_away_team = shots_away_team;
+    public void setUrlLogoAway(String urlLogoAway) {
+        this.urlLogoAway = urlLogoAway;
     }
 
-    public String getGoals_home_team(){
-        return goals_home_team;
-    }
-    public void setGoals_home_team(String goals_home_team){
-        this.goals_home_team = goals_home_team;
+    public String getIdEvent() {
+        return idEvent;
     }
 
-    public String getGoals_away_team(){
-        return goals_away_team;
-    }
-    public void setGoals_away_team(String goals_away_team){
-        this.goals_away_team = goals_away_team;
+    public void setIdEvent(String idEvent) {
+        this.idEvent = idEvent;
     }
 
+    public String getIdHomeTeam() {
+        return idHomeTeam;
+    }
 
+    public void setIdHomeTeam(String idHomeTeam) {
+        this.idHomeTeam = idHomeTeam;
+    }
 
+    public String getIdAwayTeam() {
+        return idAwayTeam;
+    }
+
+    public void setIdAwayTeam(String idAwayTeam) {
+        this.idAwayTeam = idAwayTeam;
+    }
+
+    public String getTimeEvent() {
+        return timeEvent;
+    }
+
+    public void setTimeEvent(String timeEvent) {
+        this.timeEvent = timeEvent;
+    }
+
+    public String getDateEvent() {
+        return dateEvent;
+    }
+
+    public void setDateEvent(String dateEvent) {
+        this.dateEvent = dateEvent;
+    }
+
+    public String getNameHomeTeam() {
+        return nameHomeTeam;
+    }
+
+    public void setNameHomeTeam(String nameHomeTeam) {
+        this.nameHomeTeam = nameHomeTeam;
+    }
+
+    public String getNameAwayTeam() {
+        return nameAwayTeam;
+    }
+
+    public void setNameAwayTeam(String nameAwayTeam) {
+        this.nameAwayTeam = nameAwayTeam;
+    }
+
+    public String getHomeScore() {
+        return homeScore;
+    }
+
+    public void setHomeScore(String homeScore) {
+        this.homeScore = homeScore;
+    }
+
+    public String getAwayScore() {
+        return awayScore;
+    }
+
+    public void setAwayScore(String awayScore) {
+        this.awayScore = awayScore;
+    }
 }

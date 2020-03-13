@@ -16,7 +16,7 @@ import java.util.HashMap;
 public class SQLite extends SQLiteOpenHelper {
     private static final String name = "cache_database";
 
-    SQLite(@Nullable Context context) {
+    public SQLite(@Nullable Context context) {
         super(context, name, null, 1);
     }
 
@@ -204,7 +204,7 @@ public class SQLite extends SQLiteOpenHelper {
         }
         return url ;
     }
-    HashMap<String,String> getDataTableTeam(){
+    public HashMap<String,String> getDataTableTeam(){
         HashMap<String,String> data = new HashMap<>();
         SQLiteDatabase sqLiteDatabase = this.getWritableDatabase() ;
         Cursor cursor = sqLiteDatabase.rawQuery("SELECT * FROM team",null) ;
