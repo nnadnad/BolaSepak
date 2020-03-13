@@ -136,23 +136,23 @@ public class HomeActivity extends AppCompatActivity {
                 JSONArray jsonArray = jsonEvent.getJSONArray("events");
                 for (int i = 0; i < jsonArray.length(); i++) {
                     JSONObject jsonObject = jsonArray.getJSONObject(i);
-                    String idEvent = jsonObject.getString("id_match");
-                    String idHomeTeam = jsonObject.getString("id_home_team");
-                    String idAwayTeam = jsonObject.getString("id_away_team");
-                    String nameHomeTeam = jsonObject.getString("nama_home_team");
-                    String nameAwayTeam = jsonObject.getString("nama_away_team");
-                    String intHomeScore = jsonObject.getString("score_home_team");
-                    String intAwayScore = jsonObject.getString("score_away_team");
-                    String urlLogoHome = hashMapUrl.get(idHomeTeam);
-                    String urlLogoAway = hashMapUrl.get(idAwayTeam);
+                    String idEvent = jsonObject.getString("idEvent") ;
+                    String idHomeTeam = jsonObject.getString("idHomeTeam") ;
+                    String idAwayTeam = jsonObject.getString("idAwayTeam") ;
+                    String nameHomeTeam = jsonObject.getString("strHomeTeam") ;
+                    String nameAwayTeam = jsonObject.getString("strAwayTeam") ;
+                    String intHomeScore = jsonObject.getString("intHomeScore") ;
+                    String intAwayScore = jsonObject.getString("intAwayScore") ;
+                    String urlLogoHome = hashMapUrl.get(idHomeTeam) ;
+                    String urlLogoAway = hashMapUrl.get(idAwayTeam) ;
 
-                    String homeShots = jsonObject.getString("shots_home_team");
-                    String awayShots = jsonObject.getString("shots_away_team");
-                    String goalHomeDetails = jsonObject.getString("goals_home_detail");
-                    String goalAwayDetails = jsonObject.getString("goals_away_detail");
+                    String homeShots = jsonObject.getString("intHomeShots") ;
+                    String awayShots = jsonObject.getString("intAwayShots") ;
+                    String goalHomeDetails = jsonObject.getString("strHomeGoalDetails") ;
+                    String goalAwayDetails = jsonObject.getString("strAwayGoalDetails") ;
 
-                    String dateEvent = jsonObject.getString("match_date");
-                    String timeEvent = jsonObject.getString("match_time");
+                    String dateEvent = jsonObject.getString("dateEvent") ;
+                    String timeEvent = jsonObject.getString("strTime") ;
 
                     MatchData matchData1 = new MatchData();
                     matchData1.setNama_home_team(nameHomeTeam);
@@ -179,17 +179,14 @@ public class HomeActivity extends AppCompatActivity {
 
                 HomeActivity.this.GetNextMatch();
             } catch (Exception e) {
-                new Handler().postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        progressBar.setVisibility(View.GONE);
-                    }
-                }, 3000);
+                new Handler().postDelayed(() -> progressBar.setVisibility(View.GONE), 3000);
             }
-        }, error -> new Handler().postDelayed(() -> {
-            progressBar.setVisibility(View.GONE);
-            HomeActivity.this.GetData();
-        }, 3000)) ;
+        }, error -> {
+            new Handler().postDelayed(() -> {
+                progressBar.setVisibility(View.GONE);
+                GetData();
+            }, 3000);
+        }) ;
 
         stringRequest.setShouldCache(false) ;
         requestQueue.add(stringRequest) ;
@@ -202,28 +199,27 @@ public class HomeActivity extends AppCompatActivity {
 
         StringRequest stringRequest = new StringRequest(Request.Method.GET, url, response -> {
             try{
-
                 JSONObject jsonEvent = new JSONObject(response) ;
                 JSONArray jsonArray = jsonEvent.getJSONArray("events") ;
                 for(int i = 0 ; i < jsonArray.length() ; i ++){
                     JSONObject jsonObject = jsonArray.getJSONObject(i) ;
-                    String idEvent = jsonObject.getString("id_match") ;
-                    String idHomeTeam = jsonObject.getString("id_home_team") ;
-                    String idAwayTeam = jsonObject.getString("id_away_team") ;
-                    String nameHomeTeam = jsonObject.getString("nama_home_team") ;
-                    String nameAwayTeam = jsonObject.getString("nama_away_team") ;
-                    String intHomeScore = jsonObject.getString("score_home_team") ;
-                    String intAwayScore = jsonObject.getString("score_away_team") ;
+                    String idEvent = jsonObject.getString("idEvent") ;
+                    String idHomeTeam = jsonObject.getString("idHomeTeam") ;
+                    String idAwayTeam = jsonObject.getString("idAwayTeam") ;
+                    String nameHomeTeam = jsonObject.getString("strHomeTeam") ;
+                    String nameAwayTeam = jsonObject.getString("strAwayTeam") ;
+                    String intHomeScore = jsonObject.getString("intHomeScore") ;
+                    String intAwayScore = jsonObject.getString("intAwayScore") ;
                     String urlLogoHome = hashMapUrl.get(idHomeTeam) ;
                     String urlLogoAway = hashMapUrl.get(idAwayTeam) ;
 
-                    String homeShots = jsonObject.getString("shots_home_team") ;
-                    String awayShots = jsonObject.getString("shots_away_team") ;
-                    String goalHomeDetails = jsonObject.getString("goals_home_team") ;
-                    String goalAwayDetails = jsonObject.getString("goals_away_team") ;
+                    String homeShots = jsonObject.getString("intHomeShots") ;
+                    String awayShots = jsonObject.getString("intAwayShots") ;
+                    String goalHomeDetails = jsonObject.getString("strHomeGoalDetails") ;
+                    String goalAwayDetails = jsonObject.getString("strAwayGoalDetails") ;
 
-                    String dateEvent = jsonObject.getString("match_date") ;
-                    String timeEvent = jsonObject.getString("match_time") ;
+                    String dateEvent = jsonObject.getString("dateEvent") ;
+                    String timeEvent = jsonObject.getString("strTime") ;
 
                     MatchData matchData1 = new MatchData() ;
                     matchData1.setNama_home_team(nameHomeTeam);

@@ -41,30 +41,6 @@ public class MatchAdapter extends RecyclerView.Adapter<MatchAdapter.MyHolder> {
         notifyDataSetChanged();
     }
 
-    static class MyHolder extends RecyclerView.ViewHolder {
-        ImageView image_logo_home_team ;
-        ImageView image_logo_away_team ;
-        TextView nama_home_team ;
-        TextView nama_away_team ;
-        TextView score_home_team;
-        TextView score_away_team;
-        TextView match_date ;
-        LinearLayout match_container ;
-
-        MyHolder(@NonNull View itemView) {
-            super(itemView);
-            image_logo_home_team = itemView.findViewById(R.id.logo_home_team) ;
-            image_logo_away_team = itemView.findViewById(R.id.logo_away_team) ;
-            nama_home_team = itemView.findViewById(R.id.id_home_team) ;
-            nama_away_team = itemView.findViewById(R.id.id_away_team) ;
-            score_home_team = itemView.findViewById(R.id.score_tim_home) ;
-            score_away_team = itemView.findViewById(R.id.score_tim_away) ;
-            match_date = itemView.findViewById(R.id.tgl_match) ;
-
-            match_container = itemView.findViewById(R.id.match_container) ;
-        }
-    }
-
 
     @NotNull
     @Override
@@ -120,7 +96,29 @@ public class MatchAdapter extends RecyclerView.Adapter<MatchAdapter.MyHolder> {
     }
 
 
+    static class MyHolder extends RecyclerView.ViewHolder {
+        ImageView image_logo_home_team ;
+        ImageView image_logo_away_team ;
+        TextView nama_home_team ;
+        TextView nama_away_team ;
+        TextView score_home_team;
+        TextView score_away_team;
+        TextView match_date ;
+        LinearLayout match_container ;
 
+        MyHolder(@NonNull View itemView) {
+            super(itemView);
+            image_logo_home_team = itemView.findViewById(R.id.logo_home_team) ;
+            image_logo_away_team = itemView.findViewById(R.id.logo_away_team) ;
+            nama_home_team = itemView.findViewById(R.id.id_home_team) ;
+            nama_away_team = itemView.findViewById(R.id.id_away_team) ;
+            score_home_team = itemView.findViewById(R.id.score_tim_home) ;
+            score_away_team = itemView.findViewById(R.id.score_tim_away) ;
+            match_date = itemView.findViewById(R.id.tgl_match) ;
+
+            match_container = itemView.findViewById(R.id.match_container) ;
+        }
+    }
 
 
 
