@@ -54,7 +54,7 @@ public class Notification extends BroadcastReceiver {
         )
                 .setSmallIcon(R.drawable.bols)
                 .setContentTitle(home + " vs. " + away)
-                .setContentText(home + " vs. " + away + " in 30 minutes !")
+                .setContentText(home + " vs. " + away + " right now !")
                 .setPriority(NotificationCompat.PRIORITY_HIGH)
                 .setContentIntent(eventPendingIntent)
                 .setAutoCancel(true)
