@@ -36,13 +36,13 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.home_screen);
+        setContentView(R.layout.activity_main);
         listTeams = new HashMap<String, String>();
         listMatch = new ArrayList<MatchDetails>();
 
         match_list = findViewById(R.id.match_list_view);
         if(savedInstanceState == null){
-            requestMatch();
+            requestTeams();
             recycler();
         }
     }
@@ -77,10 +77,8 @@ public class MainActivity extends AppCompatActivity {
         gridRecycler();
     }
 
-    public void requestMatch(){
+    public void requestTeams() {
         String urlTeams = "https://www.thesportsdb.com/api/v1/json/1/search_all_teams.php?l=English%20Premier%20League"; //teams
-        String urlPast = "https://www.thesportsdb.com/api/v1/json/1/eventspastleague.php?id=4328"; //15 past events
-        String urlUpcoming = "https://www.thesportsdb.com/api/v1/json/1/eventsnextleague.php?id=4328"; //15 upcoming events
 
         //request team details
         JsonObjectRequest jsonObjectRequestTeams = new JsonObjectRequest(Request.Method.GET, urlTeams, null, new Response.Listener<JSONObject>() {
@@ -97,6 +95,8 @@ public class MainActivity extends AppCompatActivity {
 
                         listTeams.put(idTeams, urlBadge);
                     }
+                    // calling request match function to get all the other components needed
+                    requestMatch();
                 }
                 catch (JSONException error){
                     error.printStackTrace();
@@ -112,6 +112,11 @@ public class MainActivity extends AppCompatActivity {
 
         // Access the RequestQueue through your singleton class.
         MySingleton.getInstance(this).addToRequestQueue(jsonObjectRequestTeams);
+    }
+
+    public void requestMatch(){
+        String urlPast = "https://www.thesportsdb.com/api/v1/json/1/eventspastleague.php?id=4328"; //15 past events
+        String urlUpcoming = "https://www.thesportsdb.com/api/v1/json/1/eventsnextleague.php?id=4328"; //15 upcoming events
 
         //request past match
         JsonObjectRequest jsonObjectRequestPast = new JsonObjectRequest(Request.Method.GET, urlPast, null, new Response.Listener<JSONObject>() {
