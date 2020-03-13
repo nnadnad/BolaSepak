@@ -13,9 +13,9 @@ langkah yang telah dilakukan oleh pengguna setiap harinya.
 ## Cara kerja, terutama mengenai pemenuhan spesifikasi aplikasi
 ### Fitur Schedule
     1. Dalam mendapatkan jadwal terkini, kami menggunakan API dari thesportsdb
-    2. Kami mengambil data dari API dengan menggunakan JSONObjectRequest yang
-    nantinya akan diproses sehingga dapat dimasukkan ke dalam template schedule
-    yang telah dibuat
+    2. Kami mengambil data dari API dengan melakukan JSONObjectRequest dengan 
+    library Volley yang nantinya akan diproses sehingga dapat dimasukkan ke 
+    dalam template schedule yang telah dibuat
     3. Kami melakukan 3 kali request, request pertama untuk mengambil idTeam
     dan logo team, request kedua untuk mengambil jadwal pertandingan yang telah
     usai, dan request ketiga untuk mengambil jadwal pertandingan yang akan 
@@ -26,6 +26,16 @@ langkah yang telah dilakukan oleh pengguna setiap harinya.
     dalam template
     
 ## Library yang digunakan dan justifikasi penggunaannya
+    1. Volley
+        Digunakan untuk melakukan pengambilan data API.
+    2. Picasso
+        Digunakan untuk menempelkan foto dari data di API yang berbentuk
+        url ke template yang berbentuk imageView.
+    3. RecyclerView
+        Digunakan untuk 
+    4. JSON
+        Digunakan untuk melakukan pengambilan data API.
+    5. 
 ## Screenshot aplikasi
 
 
