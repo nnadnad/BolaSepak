@@ -7,6 +7,9 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.res.Configuration;
+import android.hardware.Sensor;
+import android.hardware.SensorEventListener;
+import android.hardware.SensorManager;
 import android.os.Bundle;
 import android.os.PersistableBundle;
 
@@ -22,7 +25,17 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class MainActivity extends AppCompatActivity {
+import android.hardware.Sensor;
+import android.hardware.SensorEvent;
+import android.hardware.SensorEventListener;
+import android.hardware.SensorManager;
+import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
+import android.widget.TextView;
+
+
+public class MainActivity extends AppCompatActivity implements SensorEventListener, StepListener {
     RecyclerView match_list;
     MatchRecyclerAdapter matchRecyclerAdapter;
 
@@ -30,6 +43,15 @@ public class MainActivity extends AppCompatActivity {
 
     MatchDetails matchDetails;
     ArrayList<MatchDetails> listMatch;
+
+    // step variable
+    private TextView stepSum;
+    private StepDetector simpleStepDetector;
+    private SensorManager sensorManager;
+    private Sensor accel;
+    private static final String TEXT_NUM_STEPS = "Number of Steps: ";
+    private int numSteps;
+    // sampe sini
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,7 +61,7 @@ public class MainActivity extends AppCompatActivity {
         listMatch = new ArrayList<MatchDetails>();
 
         match_list = findViewById(R.id.match_list_view);
-
+        
         if(getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {
             requestTeams();
             gridRecycler();
@@ -48,6 +70,19 @@ public class MainActivity extends AppCompatActivity {
             requestTeams();
             recycler();
         }
+
+        // step initiation mulai
+        // Get an instance of the SensorManager
+        sensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
+        accel = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
+        simpleStepDetector = new StepDetector();
+        simpleStepDetector.registerListener(this);
+
+        numSteps = 0;
+        sensorManager.registerListener(MainActivity.this, accel, SensorManager.SENSOR_DELAY_FASTEST);
+
+        stepSum = findViewById(R.id.stepSum);
+        // sampe sini
     }
 
     //portrait
@@ -207,4 +242,24 @@ public class MainActivity extends AppCompatActivity {
         // Access the RequestQueue through your singleton class.
         MySingleton.getInstance(this).addToRequestQueue(jsonObjectRequestUpcoming);
     }
+
+    // step function mulai
+    @Override
+    public void onAccuracyChanged(Sensor sensor, int accuracy) {
+    }
+
+    @Override
+    public void onSensorChanged(SensorEvent event) {
+        if (event.sensor.getType() == Sensor.TYPE_ACCELEROMETER) {
+            simpleStepDetector.updateAccel(
+                    event.timestamp, event.values[0], event.values[1], event.values[2]);
+        }
+    }
+
+    @Override
+    public void step(long timeNs) {
+        numSteps++;
+        stepSum.setText(numSteps);
+    }
+    // sampe sini
 }
