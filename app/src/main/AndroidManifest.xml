@@ -11,6 +11,13 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <receiver
+            android:name=".notif.Notification"
+            android:enabled="true"
+            android:exported="true">
+        </receiver>
+        <activity android:name=".TeamDetail" />
+        <activity android:name=".EventActivity" />
         <activity android:name=".HomeActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
