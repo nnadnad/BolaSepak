@@ -35,12 +35,19 @@ langkah yang telah dilakukan oleh pengguna setiap harinya.
         Digunakan untuk 
     4. JSON
         Digunakan untuk melakukan pengambilan data API.
-    5. 
 
 ## Screenshot aplikasi
+1. Homescreen
 
+![Home Screen]()
 
+2. Event Detail
 
+![Event Detail]()
+
+3. Team Detail
+
+![Team Detail]()
 
 
 
