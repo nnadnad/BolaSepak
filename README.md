@@ -4,11 +4,12 @@
 ## Deskripsi aplikasi
 ## Cara kerja, terutama mengenai pemenuhan spesifikasi aplikasi
 ## Library yang digunakan dan justifikasi penggunaannya
+
+1. Volley: untuk melakukan request API TheSportsDB
+
 ## Screenshot aplikasi
 
-
-
-
+1. Team Detail
 
 
 
