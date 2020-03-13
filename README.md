@@ -36,6 +36,7 @@ langkah yang telah dilakukan oleh pengguna setiap harinya.
     4. JSON
         Digunakan untuk melakukan pengambilan data API.
     5. 
+
 ## Screenshot aplikasi
 
 
