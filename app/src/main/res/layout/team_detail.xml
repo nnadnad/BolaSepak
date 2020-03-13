@@ -41,15 +41,15 @@
 
             <Button
                 android:layout_marginTop="10dp"
-                android:layout_width="wrap_content"
+                android:layout_width="150dp"
                 android:layout_height="wrap_content"
                 android:text="Subscribe"
                 android:textAllCaps="false"
                 android:background="@drawable/button_released"
                 android:textColor="@color/DarkBg"
                 android:id="@+id/btnSubscribe"
-                android:visibility="invisible"
                 />
+            <!--                android:visibility="invisible"-->
 
         </LinearLayout>
 
