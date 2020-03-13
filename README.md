@@ -2,37 +2,46 @@
 
 
 ## Deskripsi aplikasi
-
-Fitur utama dari BolaSepak adalah memberikan schedule pertandingan sepak bola yang akan datang, dan juga yang sudah lewat. Selain schedule BolaSepak juga perlu menunjukkan lokasi pertandingan sepak bola dan juga cuaca di lokasi pertandingan tersebut. Selain itu pengguna juga dapat melihat profil sebuah tim beserta pertandingan yang pernah dijalani. Pengguna dapat subscribe pada sebuah tim dan akan mendapatkan notifikasi ketika tim tersebut mengikuti pertandingan baru. Selain itu, untuk mendorong asisten mata kuliah IF3210 agar lebih sering berolahraga, aplikasi BolaSepak juga memiliki sebuah step counter untuk menghitung berapa langkah yang telah diambil asisten yang direset setiap harinya.
+BolaSepak merupakan sebuah aplikasi berbasis android dengan fitur utama berupa 
+pemberitahuan jadwal pertandingan, statistik pertandingan, dan track record 
+suatu team. Pada aplikasi ini, pengguna dapat mensubscribe terhadap suatu tim 
+sepak bola pilihan-nya dan dengan mensubscribe, pengguna akan menerima 
+notifikasi apabila tim tersebut akan bertanding. Selain itu, juga terdapat 
+beberapa fitur tambahan, yaitu fitur pencarian pertandingan dan tracking jumlah
+langkah yang telah dilakukan oleh pengguna setiap harinya.
 
 ## Cara kerja, terutama mengenai pemenuhan spesifikasi aplikasi
-
-Aplikasi dapat dijalankan baik pada emulator maupun pada smartphone android.
-Pada saat aplikasi dijalankan akan ada tampilan homescreen yang terdiri dari
-daftar event yang tersedia, baik yang sudah berlalu maupun yang akan dilakukan.
-Di homescreen juga terdapat penanda jumlah langkah kaki yang telah dilakukan
-oleh pengguna. Ada search bar di atas halaman homescreen yang dapat dilakukan
-untuk mencari nama tim sepak bola.
-
-Setelah dilakukan search akan muncul event-event sepak bola yang dilakukan
-oleh tim yang kita cari tersebut. Jika kita menekan salah satu event kita akan
-berpindah ke halaman event detail, yang berisi nama kedua tim beserta skor
-kedua tim (jika event sudah berlalu), dan juga masing-masing gol yang
-dicetak oleh kedua pihak tim. Kita dapat menekan logo tim yang tertera pula.
-
-Jika kita menekan logo tim, maka kita akan berpindah ke halaman detail tim, yang
-berisi informasi event-event yang akan dilakukan oleh tim tersebut maupun event-
-event yang telah berlalu.
-
+### Fitur Schedule
+    1. Dalam mendapatkan jadwal terkini, kami menggunakan API dari thesportsdb
+    2. Kami mengambil data dari API dengan melakukan JSONObjectRequest dengan 
+    library Volley yang nantinya akan diproses sehingga dapat dimasukkan ke 
+    dalam template schedule yang telah dibuat
+    3. Kami melakukan 3 kali request, request pertama untuk mengambil idTeam
+    dan logo team, request kedua untuk mengambil jadwal pertandingan yang telah
+    usai, dan request ketiga untuk mengambil jadwal pertandingan yang akan 
+    datang
+    4. Template dibuat dengan menggunakan card view yang nantinya akan ditempel
+    ke recycler view menggunakan adapter
+    5. Adapter juga berfungsi untuk memasukan data-data yang telah diambil ke
+    dalam template
+    
 ## Library yang digunakan dan justifikasi penggunaannya
-
-1. Volley: untuk melakukan request API TheSportsDB
-
+    1. Volley
+        Digunakan untuk melakukan pengambilan data API.
+    2. Picasso
+        Digunakan untuk menempelkan foto dari data di API yang berbentuk
+        url ke template yang berbentuk imageView.
+    3. RecyclerView
+        Digunakan untuk 
+    4. JSON
+        Digunakan untuk melakukan pengambilan data API.
+    5. 
 ## Screenshot aplikasi
 
-1. Team Detail
 
-![Team Detail](assets/team_detail.jpg)
+
+
+
 
 
 #### 13517005 - Muhammad Rafi Zhafran
