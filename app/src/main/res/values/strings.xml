@@ -1,3 +1,26 @@
 <resources>
-    <string name="app_name">BolaSepak</string>
+    <string name="app_name">Bola Sepak</string>
+
+    <string name="intentIdPertandingan">idPertandingan</string>
+
+    <string name="intentNamaTim">namaTim</string>
+    <string name="intentNamaTimHome">namaTimHome</string>
+    <string name="intentNamaTimAway">namaTimAway</string>
+
+    <string name="intentSkorTimHome">skorTimHome</string>
+    <string name="intentSkorTimAway">skorTimAway</string>
+
+    <string name="intentTanggalPertandingan">tglPertandingan</string>
+
+    <string name="intentLogoTimHome">logoTimHome</string>
+    <string name="intentLogoTimAway">logoTimAway</string>
+    <string name="intentLogoTim">logoTim</string>
+
+    <string name="intentShotsTimHome">shotsTimHome</string>
+    <string name="intentShotsTimAway">shotsTimAway</string>
+
+    <string name="intentGoalsTimHome">goalsTimHome</string>
+    <string name="intentGoalsTimAway">goalsTimAway</string>
+    <string name="langkah">6000 Langkah/hari.........</string>
+
 </resources>
