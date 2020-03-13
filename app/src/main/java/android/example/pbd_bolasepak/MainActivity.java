@@ -1,16 +1,14 @@
 package android.example.pbd_bolasepak;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.content.Context;
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.os.PersistableBundle;
-import android.util.Log;
 
 import com.android.volley.Request;
 import com.android.volley.Response;
@@ -41,7 +39,12 @@ public class MainActivity extends AppCompatActivity {
         listMatch = new ArrayList<MatchDetails>();
 
         match_list = findViewById(R.id.match_list_view);
-        if(savedInstanceState == null){
+
+        if(getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {
+            requestTeams();
+            gridRecycler();
+        }
+        else {
             requestTeams();
             recycler();
         }
@@ -74,7 +77,6 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onRestoreInstanceState(@NonNull Bundle savedInstanceState) {
         super.onRestoreInstanceState(savedInstanceState);
-        gridRecycler();
     }
 
     public void requestTeams() {
