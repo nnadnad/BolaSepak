@@ -32,6 +32,7 @@ event yang telah berlalu.
 
 1. Team Detail
 
+![Team Detail](assets/team_detail.jpg)
 
 
 #### 13517005 - Muhammad Rafi Zhafran
