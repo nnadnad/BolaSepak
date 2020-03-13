@@ -1,2 +1,2 @@
-rootProject.name='BolaSepak'
 include ':app'
+rootProject.name='PBD-BolaSepak'
