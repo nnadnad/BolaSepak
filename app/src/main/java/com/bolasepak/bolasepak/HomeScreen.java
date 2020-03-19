@@ -54,8 +54,8 @@ public class HomeScreen extends AppCompatActivity {
 
     EditText etSearch ;
 
-    String URL_PRIMER_ENGLISH_NEXT_15_EVENTS = "https://www.thesportsdb.com/api/v1/json/1/eventsnextleague.php?id=4328" ;
-    String URL_PRIMER_ENGLISH_LAST_15_EVENTS = "https://www.thesportsdb.com/api/v1/json/1/eventspastleague.php?id=4328" ;
+    String URL_PRIMER_ENGLISH_NEXT_15_EVENTS = "http://134.209.97.218:5050/api/v1/json/1/eventsnextleague.php?id=4328" ;
+    String URL_PRIMER_ENGLISH_LAST_15_EVENTS = "http://134.209.97.218:5050/api/v1/json/1/eventspastleague.php?id=4328" ;
 
     ProgressBar progressBar ;
 
